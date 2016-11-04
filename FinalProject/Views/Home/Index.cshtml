@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model IEnumerable<FinalProject.Models.Computer>
+
+<div class="jumbotron">
+    <h1>Aggregate Store</h1>
+    <section>
+        <p class="lead">This website helps you compare prices and items from all around the nation.</p>
+    </section>
+</div>
+
+<div class="row">
+    <video width="1000" height="500" controls>
+        <source src="/Content/iphone6.mp4" type="video/mp4">
+    </video>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Popular Items</h2>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AvailableFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HasTouchScreen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GraphicsCardManufacturer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProcessorType)
+                </th>
+                <th>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AvailableFrom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HasTouchScreen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GraphicsCardManufacturer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProcessorType)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+<aside>
+    <canvas id="myCanvas1" width="220" height="10"
+            style="border: 1px solid #000000;"></canvas>
+    <p>
+        The best place for looking up items.
+    </p>
+    <canvas id="myCanvas2" width="220" height="10"
+            style="border: 1px solid #000000;"></canvas>
+</aside>
+
+<script>
+    function drawOnCanvas(id) {
+        var c = document.getElementById(id);
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, 220, 10);
+    }
+
+    drawOnCanvas("myCanvas1");
+    drawOnCanvas("myCanvas2");
+</script>
+
+<style>
+    .jumbotron {
+        border-radius: 15px;
+    }
+
+     .jumbotron h1 {
+         color: black;
+         text-shadow: 5px 2px 5px #000000;
+         transition: color 0.5s ease;
+     }
+
+    .jumbotron h1:hover { color: blue; }
+</style>

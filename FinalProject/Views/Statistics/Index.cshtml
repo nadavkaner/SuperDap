@@ -1,0 +1,48 @@
+﻿@model FinalProject.Models.StatisticsModel
+
+@{
+    ViewBag.Title = "Statistics";
+}
+
+<h2>Statistics</h2>
+
+<h3>Number of computers by processor type</h3>
+<svg id="graph1" width="1000" height="500"></svg>
+
+<h3>Number of computers by graphics card</h3>
+<svg id="graph2" width="1000" height="500"></svg>
+
+<style>
+    .axis path, .axis line {
+        fill: none;
+        stroke: #777;
+        shape-rendering: crispEdges;
+    }
+
+    .axis text {
+        font-family: 'Arial';
+        font-size: 13px;
+    }
+
+    .tick {
+        stroke-dasharray: 1, 2;
+    }
+
+    .bar {
+        fill: FireBrick;
+    }
+        
+</style>
+
+@Scripts.Render("~/bundles/d3")
+@Scripts.Render("~/bundles/Statistics")
+<script type="text/javascript">
+    var processorTypeKeys = @Html.Raw(Json.Encode(Model.ProcessorTypeComputersStatistics.Select(x => x.ProcessorType)));
+    var processorTypeValues = @Html.Raw(Json.Encode(Model.ProcessorTypeComputersStatistics.Select(x => x.NumberOfComputers)));
+
+    var graphicCardKeys = @Html.Raw(Json.Encode(Model.GraphicsCardComputersStatistics.Select(x => x.GraphicsCard)));
+    var graphicCardValues = @Html.Raw(Json.Encode(Model.GraphicsCardComputersStatistics.Select(x => x.NumberOfComputers)));
+
+    createHistogram("#graph1", processorTypeKeys, processorTypeValues);
+    createHistogram("#graph2", graphicCardKeys, graphicCardValues);
+</script>

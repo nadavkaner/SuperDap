@@ -1,0 +1,110 @@
+﻿@model FinalProject.Controllers.StoresModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Stores</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="row">
+    <strong>Filters</strong>
+</div>
+<div class="row">
+    Location: @foreach (var location in Model.AvailableLocations)
+              {
+                  @Html.ActionLink(location, "Index", new { location = location, hasCrippleEntrance = Model.CrippleEntranceFilter, hasSecurity = Model.SecurityFilter })<span>, </span>
+              }
+</div>
+<div class="row">
+    Cripple Entrance: @Html.ActionLink("Yes", "Index", new { location = Model.LocationFilter, hasCrippleEntrance = true, hasSecurity = Model.SecurityFilter }), @Html.ActionLink("No", "Index", new { location = Model.LocationFilter, hasCrippleEntrance = false, hasSecurity = Model.SecurityFilter })
+</div>
+<div class="row">
+    Has Security: @Html.ActionLink("Yes", "Index", new { location = Model.LocationFilter, hasCrippleEntrance = Model.SecurityFilter, hasSecurity = true }), @Html.ActionLink("No", "Index", new { location = Model.LocationFilter, hasCrippleEntrance = Model.CrippleEntranceFilter, hasSecurity = false })
+</div>
+<div class="row">
+    @Html.ActionLink("Clear Filters", "Index")
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Cripple Entrance
+        </th>
+        <th>
+            Security
+        </th>
+        <th>
+            Most Popular Computer
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Stores) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasCrippleEntrance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasSecurity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MostPopularComputer.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.StoreId }) |
+
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.StoreId })<span>
+                                                                                   |
+                                                                               </span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StoreId })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div id="map-canvas"></div>
+
+<style>
+    html, body, #map-canvas {
+        height: 800px;
+        width: 800px;
+        margin: 0px;
+        padding: 0px;
+    }
+</style>
+
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?AIzaSyBVfO8LckdOHAot1a8rZW0bmJIoWO2A3os=API_KEY&sensor=true">
+</script>
+@Scripts.Render("~/bundles/Map")
+<script type="text/javascript">
+    google.maps.event.addDomListener(window, 'load', function () {
+        initializeMap();
+        @foreach (var store in Model.Stores.Select(x => new { Coordinates = x.Coordinates, Name = x.Name }))
+        {
+            <text>addMarkerToMap(@Html.Raw(Json.Encode(store)));</text>
+        } 
+    });
+</script>
+
+
