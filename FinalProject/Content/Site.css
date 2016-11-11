@@ -1,6 +1,7 @@
 ﻿body {
     padding-bottom: 20px;
     padding-top: 50px;
+     font-family: 'Roboto', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -8,6 +9,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color: #ffffff;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -30,13 +32,8 @@ input[type="checkbox"].input-validation-error { border: 0 none; }
 
 .validation-summary-valid { display: none; }
 
-.navigation { line-height: 3.6; }
+.navigation { line-height: 3.8; }
 
 @font-face {
-    font-family: myFont;
-    src: url('/Content/font.otf') format('otf');
-}
-
-* {
-    font-family: myFont   
+     font-family: 'Roboto', sans-serif;
 }
