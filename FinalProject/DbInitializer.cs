@@ -139,7 +139,8 @@ namespace FinalProject
                         Long = -122.1215
                     },
                     Revenue = 8532000000,
-                    ImagePath = "http://www.freeiconspng.com/uploads/microsoft-new-logo-simple-0.png",
+                    ImagePath = "http://i.giphy.com/12ayMrhdZf0Ptu.gif",
+//                    ImagePath = "http://www.freeiconspng.com/uploads/microsoft-new-logo-simple-0.png",
                 },
                 new Company
                 {
@@ -165,7 +166,8 @@ namespace FinalProject
                         Long = -122.1817
                     },
                     Revenue = 1754000000,
-                    ImagePath = "https://www.facebook.com/images/fb_icon_325x325.png"
+                    ImagePath = "http://i.giphy.com/ijEiXYEo9DBxm.gif"
+//                    ImagePath = "https://www.facebook.com/images/fb_icon_325x325.png"
                 },
                 new Company
                 {
@@ -205,6 +207,19 @@ namespace FinalProject
                     },
                     Revenue = 35000000,
                     ImagePath = "https://d1qb2nb5cznatu.cloudfront.net/startups/i/21569-c86e305ed0dda7ef283d565cce8195fe-medium_jpg.jpg?buster=1425419948"
+                },
+                new Company
+                {
+                    CompanyId = Guid.NewGuid(),
+                    Name = "Slack Technologies",
+                    Location = "Canada",
+                    Coordinates = new Coordinates()
+                    {
+                        Lat = 49.2827, 
+                        Long = -123.1207
+                    },
+                    Revenue = 30000000,
+                    ImagePath = "https://s-media-cache-ak0.pinimg.com/originals/2b/26/43/2b26437d72e949db88e62d251c736c45.jpg"
                 }
             };
         }

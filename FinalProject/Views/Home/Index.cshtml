@@ -10,53 +10,125 @@
     </video>
     <div style="position: absolute; top: 0; right: 0; width: 100%; height: 100%; background-color: #191d22; background-color: rgba(25, 29, 34, .75);">
         <div style="position: absolute; top: 60%; right: 0; width: 100%; height: 100%; text-align: center; font-size: 30px; font-weight: bold; color: white; text-shadow: 0px 0px 10px black;">
-            Stay updated with the most latest development solutions! <br />
+            Stay updated with the most recent development solutions! <br />
             Learn which are the hotest dev tools in the industry, that fit your project!
         </div>
     </div>
 </div>
-<div class="row" style="z-index: 1; background-color: white; position: relative;">
-    <div class="col-md-4">
-        <h3>hotest companies in the site</h3>
-        <div class="FlexRow">
-            @foreach (var item in Model)
-            {
-                <img src="@Html.DisplayFor(model => item.ImagePath)" style=" max-height: 100px; margin: 10px;" />
-            }
+<div class="FlexRow" style=" flex-wrap: wrap; justify-content: space-around;">
+    @foreach (var item in Model)
+    {
+        <div style="margin: 10px; flex: 1;"><img src="@Html.DisplayFor(model => item.ImagePath)" style="height: 100px;"/>
+        </div>
+    }
+</div>
+<hr/>
+<h4>Core Developers:</h4>
+<div class="FlexRow" style="flex-wrap: wrap; justify-content: space-around; flex-wrap: wrap; align-content: center; margin: 0 200px">
+    <div class="FlexRow employee-wrap">
+        <div class="FlexRow employee">
+            <img class="employee-photo" alt="Bar Miliavsky"
+                 src="https://media.licdn.com/mpr/mpr/shrink_100_100/AAEAAQAAAAAAAAPfAAAAJGU1YmVlNDhjLWQwODQtNDE0OC05NTY5LTM3ZjI4ZmRjNzVjNg.jpg" width="100" height="100">
+            <div class="FlexCol" style="width: 200px; margin: 5px; justify-content: space-between;">
+                <b>Bar Miliavsky</b>
+                Cross-platform Developer at Israel Defense Forces
+                <div class="FlexRow" style="justify-content: flex-end">
+                    <a href="https://www.linkedin.com/in/bar-miliavsky-b3696b55">
+                        <img alt="LinkedIn" border="0" height="14" src="https://ci3.googleusercontent.com/proxy/_vGiq1id9xAsRUtZPamNuOBhctilGDplJvKTQSvFRtC8FfW7zNaU9xWAOsjQzUd-oL4jIkjc1L3GEMYk5FV9f1yJf7JQr1xzrWt46srndpONLL4QJPWwxPG3zeDM4DGewwLLoSNkt7PJ3ET8KQZURZ1fCY3zTZm13Vr4N3Dr=s0-d-e1-ft#https://static.licdn.com/scds/common/u/images/email/phoenix/logos/logo_phoenix_footer_gray_197x48_v1.png" width="58" style="outline: none; color: #ffffff; display: block; text-decoration: none" ">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="FlexRow employee-wrap">
+        <div class="FlexRow employee">
+            <img class="employee-photo" alt="Yakir Kadkoda"
+                 src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAeBAAAAJGFjNjdlNWU0LTdlYTMtNDdkMC05NDRiLWE2MGQ2NTQ2N2M1NQ.jpg" width="100" height="100">
+            <div class="FlexCol" style="width: 200px; margin: 5px; justify-content: space-between;">
+                <b>Yakir Kadkoda</b>
+                Development Team Leader at Israel Defense Forces
+                <div class="FlexRow" style="justify-content: flex-end">
+                    <a href="https://www.linkedin.com/in/yakir-kadkoda-813928b5">
+                        <img alt="LinkedIn" border="0" height="14" src="https://ci3.googleusercontent.com/proxy/_vGiq1id9xAsRUtZPamNuOBhctilGDplJvKTQSvFRtC8FfW7zNaU9xWAOsjQzUd-oL4jIkjc1L3GEMYk5FV9f1yJf7JQr1xzrWt46srndpONLL4QJPWwxPG3zeDM4DGewwLLoSNkt7PJ3ET8KQZURZ1fCY3zTZm13Vr4N3Dr=s0-d-e1-ft#https://static.licdn.com/scds/common/u/images/email/phoenix/logos/logo_phoenix_footer_gray_197x48_v1.png" width="58" style="outline: none; color: #ffffff; display: block; text-decoration: none" ">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="FlexRow employee-wrap">
+        <div class="FlexRow employee">
+            <img class="employee-photo" alt="Nadav Kaner"
+                 src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAASoAAAAJGVkODUyNjc2LWExODktNDZiMS1hMzc5LWY3NzNjMGZlZTkyMA.jpg" width="100" height="100">
+            <div class="FlexCol" style="width: 200px; margin: 5px; justify-content: space-between;">
+                <b>Nadav Kaner</b>
+                Programmer and on-the-job trainer at Israel Defense Forces
+                <div class="FlexRow" style="justify-content: flex-end">
+                    <a href="https://www.linkedin.com/in/nadav-kaner-671817109">
+                        <img alt="LinkedIn" border="0" height="14" src="https://ci3.googleusercontent.com/proxy/_vGiq1id9xAsRUtZPamNuOBhctilGDplJvKTQSvFRtC8FfW7zNaU9xWAOsjQzUd-oL4jIkjc1L3GEMYk5FV9f1yJf7JQr1xzrWt46srndpONLL4QJPWwxPG3zeDM4DGewwLLoSNkt7PJ3ET8KQZURZ1fCY3zTZm13Vr4N3Dr=s0-d-e1-ft#https://static.licdn.com/scds/common/u/images/email/phoenix/logos/logo_phoenix_footer_gray_197x48_v1.png" width="58" style="outline: none; color: #ffffff; display: block; text-decoration: none" ">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="FlexRow employee-wrap">
+        <div class="FlexRow employee">
+            <img class="employee-photo" alt="Mor Tal"
+                 src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAdmAAAAJGY5MGE2ZDcwLTFmMWQtNGIyMS1iMTg1LTJmZWE1NzJjZmU1OA.jpg" width="100" height="100">
+            <div class="FlexCol" style="width: 200px; margin: 5px; justify-content: space-between;">
+                <b>Mor Tal</b>
+                Full-Stack Developer at Israel Defense Force
+                <div class="FlexRow" style="justify-content: flex-end">
+                    <a href="https://www.linkedin.com/in/mor-tal-8970b010a">
+                        <img alt="LinkedIn" border="0" height="14" src="https://ci3.googleusercontent.com/proxy/_vGiq1id9xAsRUtZPamNuOBhctilGDplJvKTQSvFRtC8FfW7zNaU9xWAOsjQzUd-oL4jIkjc1L3GEMYk5FV9f1yJf7JQr1xzrWt46srndpONLL4QJPWwxPG3zeDM4DGewwLLoSNkt7PJ3ET8KQZURZ1fCY3zTZm13Vr4N3Dr=s0-d-e1-ft#https://static.licdn.com/scds/common/u/images/email/phoenix/logos/logo_phoenix_footer_gray_197x48_v1.png" width="58" style="outline: none; color: #ffffff; display: block; text-decoration: none" ">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script>
-    function drawOnCanvas(id) {
-        var c = document.getElementById(id);
-        var ctx = c.getContext("2d");
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, 220, 10);
-    }
+    <script>
+        function drawOnCanvas(id) {
+            var c = document.getElementById(id);
+            var ctx = c.getContext("2d");
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, 220, 10);
+        }
 
-    drawOnCanvas("myCanvas1");
-    drawOnCanvas("myCanvas2");
-</script>
+        drawOnCanvas("myCanvas1");
+        drawOnCanvas("myCanvas2");
+    </script>
 
-<style>
-    .jumbotron {
-        border-radius: 15px;
-    }
+    <style>
+        .FlexRow {
+            /*width: 100%;*/
+            display: flex;
+            flex-direction: row;
+        }
 
-    .jumbotron h1 {
-        color: black;
-        text-shadow: 5px 2px 5px #000000;
-        transition: color 0.5s ease;
-    }
+        .FlexCol {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .jumbotron h1:hover {
-        color: blue;
-    }
-    
-    .FlexRow {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-    }
+        .employee-photo {
+            border-radius: 80px;
+            height: 80px;
+            width: 80px;
+        }
 
-    </style >
+        .employee {
+            align-content: center;
+            margin: 15px 0;
+            width: 350px;
+            border-style: solid;
+            border-width: 1px;
+            padding: 15px;
+            border-color: #999999;
+        }
+
+        .employee-wrap {
+            justify-content: space-around;
+            width: 50%;
+        }
+    </style>
