@@ -102,9 +102,11 @@ namespace FinalProject
             context.SaveChanges();
 
             computers = context.Computers.ToList();
-         
-            companies[0].MostPopularComputer = computers.First();
-            companies[1].MostPopularComputer = computers.Last();
+
+            foreach (var company in companies)
+            {
+                company.MostPopularComputer = computers.FirstOrDefault(x => x.Company.Name == company.Name);
+            }
 
             context.SaveChanges();
 
