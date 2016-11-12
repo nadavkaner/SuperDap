@@ -5,12 +5,12 @@ using FinalProject.Models;
 namespace FinalProject.Controllers
 {
     public class HomeController : Controller
-    {
+    { 
         private readonly Context _db = new Context();
 
         public ActionResult Index()
         {
-            var items = _db.Computers.Take(10).OrderByDescending(x => x.NumberOfPurchases).ToList();
+            var items = _db.Companies.Take(10).OrderByDescending(x => x.Revenue).ToList();
             return View(items);
         }
 

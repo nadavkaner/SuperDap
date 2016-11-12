@@ -1,4 +1,4 @@
-﻿@model FinalProject.Models.Store
+﻿@model FinalProject.Models.Company
 
 @{
     ViewBag.Title = "Edit";
@@ -15,7 +15,7 @@
         <h4>Store</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.StoreId)
+        @Html.HiddenFor(model => model.CompanyId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })

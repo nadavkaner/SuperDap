@@ -1,10 +1,10 @@
-﻿@model FinalProject.Controllers.StoresModel
+﻿@model FinalProject.Controllers.CompaniesModel
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Stores</h2>
+<h2>Companys</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -20,12 +20,6 @@
               }
 </div>
 <div class="row">
-    Cripple Entrance: @Html.ActionLink("Yes", "Index", new { location = Model.LocationFilter, hasCrippleEntrance = true, hasSecurity = Model.SecurityFilter }), @Html.ActionLink("No", "Index", new { location = Model.LocationFilter, hasCrippleEntrance = false, hasSecurity = Model.SecurityFilter })
-</div>
-<div class="row">
-    Has Security: @Html.ActionLink("Yes", "Index", new { location = Model.LocationFilter, hasCrippleEntrance = Model.SecurityFilter, hasSecurity = true }), @Html.ActionLink("No", "Index", new { location = Model.LocationFilter, hasCrippleEntrance = Model.CrippleEntranceFilter, hasSecurity = false })
-</div>
-<div class="row">
     @Html.ActionLink("Clear Filters", "Index")
 </div>
 
@@ -38,18 +32,12 @@
             Location
         </th>
         <th>
-            Cripple Entrance
-        </th>
-        <th>
-            Security
-        </th>
-        <th>
-            Most Popular Computer
+            Most Popular Dev Product
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Stores) {
+    @foreach (var item in Model.Companies) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -58,23 +46,17 @@
                 @Html.DisplayFor(modelItem => item.Location)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HasCrippleEntrance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HasSecurity)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.MostPopularComputer.Name)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.StoreId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CompanyId }) |
 
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.StoreId })<span>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CompanyId })<span>
                                                                                    |
                                                                                </span>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.StoreId })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CompanyId })
                 }
             </td>
         </tr>
@@ -91,15 +73,15 @@
         padding: 0px;
     }
 </style>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfiVsoXlAczf7sp0Uxl7XhL0XZm70XWcQ&sensor=true">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfiVsoXlAczf7sp0Uxl7XhL0XZm70XWcQ">
 </script>
 @Scripts.Render("~/bundles/Map")
 <script type="text/javascript">
     google.maps.event.addDomListener(window, 'load', function () {
         initializeMap();
-        @foreach (var store in Model.Stores.Select(x => new { Coordinates = x.Coordinates, Name = x.Name }))
+        @foreach (var Company in Model.Companies.Select(x => new { Coordinates = x.Coordinates, Name = x.Name }))
         {
-            <text>addMarkerToMap(@Html.Raw(Json.Encode(store)));</text>
+            <text>addMarkerToMap(@Html.Raw(Json.Encode(Company)));</text>
         } 
     });
 </script>

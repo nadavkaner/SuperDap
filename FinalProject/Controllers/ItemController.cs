@@ -117,8 +117,8 @@ namespace FinalProject.Controllers
             if (ModelState.IsValid)
             {
                 item.ItemId = Guid.NewGuid();
-                item.Store = _db.Stores.First();
-                item.StoreId = item.Store.StoreId;
+                item.Company = _db.Companies.First();
+                item.StoreId = item.Company.CompanyId;
                 _db.Computers.Add(item);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -204,7 +204,7 @@ namespace FinalProject.Controllers
                 return Redirect("/Home/Index");
             }
 
-            var conflictingStores = _db.Stores.Where(x => x.MostPopularComputer.ItemId == id).ToList();
+            var conflictingStores = _db.Companies.Where(x => x.MostPopularComputer.ItemId == id).ToList();
             foreach (var store in conflictingStores)
             {
                 store.MostPopularComputer = null;

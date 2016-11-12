@@ -20,7 +20,7 @@ namespace FinalProject.Models
         public string Category { get; set; }
         [DefaultValue(0)]
         public int NumberOfPurchases { get; set; }
-        public virtual Store Store { get; set; }
+        public virtual Company Company { get; set; }
         public Guid StoreId { get; set; }
     }
 

@@ -2,81 +2,28 @@
     ViewBag.Title = "Home Page";
 }
 
-@model IEnumerable<FinalProject.Models.Computer>
+@model IEnumerable<FinalProject.Models.Company>
 
-<div id="video-shaded" class="row" style="position: relative;">
-    @*<video width="1000" height="500" controls>
-            <source src="/Content/iphone6.mp4" type="video/mp4">
-        </video>*@
+<div class="row" style="position: relative; overflow-y: hidden; height: 300px">
     <video width="100%" autoplay loop>
         <source src="https://s3.amazonaws.com/www-assets.invisionapp.com/Homepage/enterprise-loop.mp4" type="video/mp4" style="z-index: 10;">
     </video>
     <div style="position: absolute; top: 0; right: 0; width: 100%; height: 100%; background-color: #191d22; background-color: rgba(25, 29, 34, .75);">
-        <div style="position: absolute; top: 40%; right: 0; width: 100%; height: 100%; text-align: center; font-size: 30px; font-weight: bold; color: white; text-shadow: 0px 0px 10px black;">
+        <div style="position: absolute; top: 60%; right: 0; width: 100%; height: 100%; text-align: center; font-size: 30px; font-weight: bold; color: white; text-shadow: 0px 0px 10px black;">
             Stay updated with the most latest development solutions! <br />
             Learn which are the hotest dev tools in the industry, that fit your project!
         </div>
     </div>
 </div>
-<div class="row" style="z-index: 1; background-color: white; position: relative; top: -275px;">
+<div class="row" style="z-index: 1; background-color: white; position: relative;">
     <div class="col-md-4">
-        <h2>Popular Items</h2>
-
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AvailableFrom)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HasTouchScreen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GraphicsCardManufacturer)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProcessorType)
-                </th>
-                <th>
-                </th>
-            </tr>
-
+        <h3>hotest companies in the site</h3>
+        <div class="FlexRow">
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AvailableFrom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HasTouchScreen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GraphicsCardManufacturer)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProcessorType)
-                    </td>
-                </tr>
+                <img src="@Html.DisplayFor(model => item.ImagePath)" style=" max-height: 100px; margin: 10px;" />
             }
-
-        </table>
+        </div>
     </div>
 </div>
 <script>
@@ -105,4 +52,11 @@
     .jumbotron h1:hover {
         color: blue;
     }
-</style>
+    
+    .FlexRow {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    </style >

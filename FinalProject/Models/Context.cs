@@ -21,12 +21,12 @@ namespace FinalProject.Models
         {
             modelBuilder
                 .Entity<Computer>()
-                .HasRequired<Store>(s => s.Store)
+                .HasRequired<Company>(s => s.Company)
                 .WithMany(s => s.Computers)
                 .HasForeignKey(s => s.StoreId)
                 .WillCascadeOnDelete();
             modelBuilder
-                .Entity<Store>()
+                .Entity<Company>()
                 .HasOptional(x => x.MostPopularComputer);
 
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
@@ -35,6 +35,6 @@ namespace FinalProject.Models
         }
 
         public DbSet<Computer> Computers { get; set; }
-        public DbSet<Store> Stores { get; set; }
+        public DbSet<Company> Companies { get; set; }
     }
 }
