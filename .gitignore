@@ -1,6 +1,8 @@
 
 #ignore thumbnails created by windows
 Thumbs.db
+# Visual Studio 2015 cache/options directory
+.vs/
 #Ignore files build by Visual Studio
 *.obj
 *.exe
@@ -27,3 +29,4 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+
