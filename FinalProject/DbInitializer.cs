@@ -5,7 +5,6 @@ using System.Linq;
 using FinalProject.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WebGrease.Css.Extensions;
 
 namespace FinalProject
 {
@@ -130,7 +129,7 @@ namespace FinalProject
                         Lat = 50.0755, 
                         Long = 14.4378
                     },
-                    Revenue = 1240000,
+                    Revenue = 12400,
                     ImagePath = "https://lh3.googleusercontent.com/-4urMhkpWddg/AAAAAAAAAAI/AAAAAAAAEgI/gPlHf7c0lNo/s0-c-k-no-ns/photo.jpg",
                 },
                 new Company
@@ -143,7 +142,7 @@ namespace FinalProject
                         Lat = 47.6740, 
                         Long = -122.1215
                     },
-                    Revenue = 8532000000,
+                    Revenue = 85320,
                     ImagePath = "http://i.giphy.com/12ayMrhdZf0Ptu.gif",
 //                    ImagePath = "http://www.freeiconspng.com/uploads/microsoft-new-logo-simple-0.png",
                 },
@@ -157,7 +156,7 @@ namespace FinalProject
                         Lat = 37.3861, 
                         Long = -122.0839
                     },
-                    Revenue = 7454000000,
+                    Revenue = 115000,
                     ImagePath = "http://images.dailytech.com/nimage/G_is_For_Google_New_Logo_Thumb.png"
                 },
                 new Company
@@ -170,7 +169,7 @@ namespace FinalProject
                         Lat = 37.4530, 
                         Long = -122.1817
                     },
-                    Revenue = 1754000000,
+                    Revenue = 105000,
                     ImagePath = "http://i.giphy.com/ijEiXYEo9DBxm.gif"
 //                    ImagePath = "https://www.facebook.com/images/fb_icon_325x325.png"
                 },
@@ -184,7 +183,7 @@ namespace FinalProject
                         Lat = 37.7749, 
                         Long = -122.4194
                     },
-                    Revenue = 154000000,
+                    Revenue = 56000,
                     ImagePath = "https://tecnorbita.files.wordpress.com/2015/03/unity3d-logo.png"
                 },
                 new Company
@@ -197,7 +196,7 @@ namespace FinalProject
                         Lat = 37.7749, 
                         Long = -122.4194
                     },
-                    Revenue = 1000000,
+                    Revenue = 85000,
                     ImagePath = "https://assets-cdn.github.com/images/modules/logos_page/Octocat.png"
                 },
                 new Company
@@ -210,7 +209,7 @@ namespace FinalProject
                         Lat = 51.2964, 
                         Long = 6.8402
                     },
-                    Revenue = 35000000,
+                    Revenue = 15000,
                     ImagePath = "https://d1qb2nb5cznatu.cloudfront.net/startups/i/21569-c86e305ed0dda7ef283d565cce8195fe-medium_jpg.jpg?buster=1425419948"
                 },
                 new Company
@@ -223,7 +222,7 @@ namespace FinalProject
                         Lat = 49.2827, 
                         Long = -123.1207
                     },
-                    Revenue = 30000000,
+                    Revenue = 46000,
                     ImagePath = "https://s-media-cache-ak0.pinimg.com/originals/2b/26/43/2b26437d72e949db88e62d251c736c45.jpg"
                 }
             };

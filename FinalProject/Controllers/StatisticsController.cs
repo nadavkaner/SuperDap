@@ -20,7 +20,21 @@ namespace FinalProject.Controllers
             {
                 return Redirect("/Home/Index");
             }
-            return Redirect("/Home/Index");
+
+            var companiesRevenue = _db.Companies.Select(x => new
+            {
+                x.Name,
+                x.Revenue
+            });
+            
+            return View(new StatisticsModel
+            {
+                CompanyRevenues = companiesRevenue.Select(x => new CompanyRevenue
+                {
+                    Company = x.Name,
+                    Revenue = x.Revenue
+                })
+            });
         }
     }
 }

@@ -5,19 +5,12 @@ namespace FinalProject.Models
 {
     public class StatisticsModel
     {
-        public IEnumerable<ComputerProcessorTypeStatistics> ProcessorTypeComputersStatistics { get; set; }
-        public IEnumerable<ComputerGraphicsCardStatistics> GraphicsCardComputersStatistics { get; set; }
+        public IEnumerable<CompanyRevenue> CompanyRevenues { get; set; }
     }
 
-    public class ComputerProcessorTypeStatistics
+    public class CompanyRevenue
     {
-        public string ProcessorType { get; set; }
-        public int NumberOfComputers { get; set; }
-    }
-
-    public class ComputerGraphicsCardStatistics
-    {
-        public string GraphicsCard { get; set; }
-        public int NumberOfComputers { get; set; }
+        public string Company { get; set; }
+        public double Revenue{ get; set; }
     }
 }

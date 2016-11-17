@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(FinalProject.Startup))]
+[assembly: OwinStartup(typeof(FinalProject.Startup))]
 namespace FinalProject
 {
     public partial class Startup
