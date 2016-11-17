@@ -21,17 +21,15 @@
     @Html.DisplayFor(model => model.Location)
 
     <div style="font-weight: bold; margin: 0 10px">
-        @Html.DisplayNameFor(model => model.Location):
-    </div>
-    @Html.DisplayFor(model => model.Location)
-
-    <div style="font-weight: bold; margin: 0 10px">
         @Html.DisplayNameFor(model => model.Revenue):
     </div>
     @Html.DisplayFor(model => model.Revenue)$
 </div>
 <div class="companyDetails" style="position: relative; left: 40px">
-    <div style="margin: 10px">@Html.ActionLink("Edit", "Edit", new { id = Model.CompanyId }) </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div style="margin: 10px">@Html.ActionLink("Edit", "Edit", new {id = Model.CompanyId}) </div>
+    }
     <div style="margin: 10px">@Html.ActionLink("Back to List", "Index") </div>
 </div>
 
