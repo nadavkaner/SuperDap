@@ -15,9 +15,9 @@ namespace FinalProject.Models
         [Required]
         public string Location { get; set; }
 
-        public virtual Computer MostPopularComputer { get; set; }
+        public virtual DevelopmentTool MostPopularDevelopmentTool { get; set; }
         public Guid MostPopularComputerId { get; set; }
-        public virtual ICollection<Computer> Computers { get; set; }
+        public virtual ICollection<DevelopmentTool> DevelopmentTools { get; set; }
         public Coordinates Coordinates { get; set; }
         public double Revenue { get; set; }
         public string ImagePath { get; set; }

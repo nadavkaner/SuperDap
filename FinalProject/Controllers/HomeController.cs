@@ -10,7 +10,7 @@ namespace FinalProject.Controllers
 
         public ActionResult Index()
         {
-            var items = _db.Companies.Take(10).OrderByDescending(x => x.Revenue).ToList();
+            var items = _db.Companies.Take(8).OrderByDescending(x => x.Revenue).ToList();
             return View(items);
         }
 

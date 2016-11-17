@@ -34,78 +34,81 @@ namespace FinalProject
             var jetBrains = companies.First(x => x.Name == "JetBrains");
             var google = companies.First(x => x.Name == "Google");
             var microsoft = companies.First(x => x.Name == "Microsoft");
-            var computers = new List<Computer>
+            var computers = new List<DevelopmentTool>
             {
-                new Computer
+                new DevelopmentTool
                 {
-                    ItemId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = "Resharper",
-                    HasTouchScreen = true,
-                    Category = "Laptops",
+                    Description = "Resharper is cool",
                     Price = 4400,
-                    GraphicsCardManufacturer = GraphicsCardManufacturer.Nvidia,
-                    ProcessorType = ProcessorType.i7,
-                    AvailableFrom = DateTime.Now,
-                    Company = jetBrains
+                    LastUpdate = DateTime.Now,
+                    Company = jetBrains,
+                    NumberOfRaters = 3,
+                    Rate = 5,
+                    NumberOfUsers = 50000,
+                    SourceCodeLicense = SourceCodeLicense.ClosedSource
+                    
                 },
-                new Computer
+                new DevelopmentTool
                 {
-                    ItemId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = "IntelliJ",
-                    HasTouchScreen = false,
-                    Category = "Laptops",
                     Price = 2000,
-                    GraphicsCardManufacturer = GraphicsCardManufacturer.Amd,
-                    ProcessorType = ProcessorType.i3,
-                    AvailableFrom = DateTime.Now,
-                    Company = jetBrains
+                    Description = "IntelliJ is cool",
+                    LastUpdate = DateTime.Now,
+                    Company = jetBrains,
+                    NumberOfRaters = 3,
+                    Rate = 5,
+                    NumberOfUsers = 50000,
+                    SourceCodeLicense = SourceCodeLicense.ClosedSource
                 },
-                new Computer
+                new DevelopmentTool
                 {
-                    ItemId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = "WebStorm",
-                    HasTouchScreen = true,
-                    Category = "Laptops",
-                    Price = 2500,
-                    GraphicsCardManufacturer = GraphicsCardManufacturer.Intel,
-                    ProcessorType = ProcessorType.i5,
-                    AvailableFrom = DateTime.Now,
-                    Company = jetBrains
+                    Description = "WebStorm is cool",
+                    LastUpdate = DateTime.Now,
+                    Company = jetBrains,
+                    NumberOfRaters = 3,
+                    Rate = 5,
+                    NumberOfUsers = 50000,
+                    SourceCodeLicense = SourceCodeLicense.ClosedSource
                 },
-                new Computer
+                new DevelopmentTool
                 {
-                    ItemId = Guid.NewGuid(),
-                    Name = "Google App Service",
-                    HasTouchScreen = false,
-                    Category = "Laptops",
-                    Price = 4200,
-                    GraphicsCardManufacturer = GraphicsCardManufacturer.Nvidia,
-                    ProcessorType = ProcessorType.i7,
-                    AvailableFrom = DateTime.Now,
-                    Company = google
+                    Id = Guid.NewGuid(),
+                    Name = "Google App Engine",
+                    Description = "App Engine's environments, the standard environment and the flexible environment (in beta), support a host of programming languages.",
+                    LastUpdate = DateTime.Now,
+                    Company = google,
+                    NumberOfRaters = 3,
+                    Rate = 5,
+                    NumberOfUsers = 50000,
+                    SourceCodeLicense = SourceCodeLicense.OpenSource
                 },
-                new Computer
+                new DevelopmentTool
                 {
-                    ItemId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = "Visual Studio",
-                    HasTouchScreen = false,
-                    Category = "Laptops",
-                    Price = 3500,
-                    GraphicsCardManufacturer = GraphicsCardManufacturer.Intel,
-                    ProcessorType = ProcessorType.i7,
-                    AvailableFrom = DateTime.Now,
-                    Company = microsoft
+                    Description = "Fully-featured IDE, productivity for any apps",
+                    LastUpdate = DateTime.Now,
+                    Company = microsoft,
+                    NumberOfRaters = 3,
+                    Rate = 5,
+                    NumberOfUsers = 50000,
+                    SourceCodeLicense = SourceCodeLicense.OpenSource
                 }
             };
 
-            computers.ForEach(c => context.Computers.Add(c));
+            computers.ForEach(c => context.DevelopmentTools.Add(c));
             context.SaveChanges();
 
-            computers = context.Computers.ToList();
+            computers = context.DevelopmentTools.ToList();
 
             foreach (var company in companies)
             {
-                company.MostPopularComputer = computers.FirstOrDefault(x => x.Company.Name == company.Name);
+                company.MostPopularDevelopmentTool = computers.FirstOrDefault(x => x.Company.Name == company.Name);
             }
 
             context.SaveChanges();

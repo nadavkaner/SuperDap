@@ -6,6 +6,5 @@ namespace FinalProject.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public IList<Item> PurchasedItems { get; set; }
     }
 }

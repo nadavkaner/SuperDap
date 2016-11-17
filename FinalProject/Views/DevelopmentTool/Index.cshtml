@@ -1,0 +1,85 @@
+﻿@using FinalProject.Models
+@model FinalProject.Controllers.DevelopmentToolsModel
+
+@{
+    ViewBag.Title = "DevelopmentTools";
+}
+
+<h2>DevelopmentTools</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="row">
+    <strong>Filters</strong>
+</div>
+<div class="row">
+    @Html.ActionLink("Clear Filters", "Index")
+</div>
+
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Touch Screen
+            </th>
+            <th>
+                Graphics Card Manufacturer
+            </th>
+            <th>
+                Processor Type
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Company Location
+            </th>
+            <th>
+                Available From
+            </th>
+            <th>
+            </th>
+        </tr>
+
+        @foreach (var item in Model.DevTools)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastUpdate)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })<span>
+                            |
+                        </span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -88,8 +88,8 @@ namespace FinalProject.Controllers
             if (ModelState.IsValid)
             {
                 company.CompanyId = Guid.NewGuid();
-                company.MostPopularComputer = _db.Computers.First();
-                company.MostPopularComputerId = company.MostPopularComputer.ItemId;
+                company.MostPopularDevelopmentTool = _db.DevelopmentTools.First();
+                company.MostPopularComputerId = company.MostPopularDevelopmentTool.Id;
                 company.Coordinates = new Coordinates()
                 {
                     Lat = 32.077263,
@@ -178,7 +178,7 @@ namespace FinalProject.Controllers
             }
 
             var store = _db.Companies.Find(id);
-            store.MostPopularComputer = null;
+            store.MostPopularDevelopmentTool = null;
             store.MostPopularComputerId = Guid.Empty;
             _db.SaveChanges();
 

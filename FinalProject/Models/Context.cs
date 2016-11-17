@@ -20,21 +20,19 @@ namespace FinalProject.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<Computer>()
+                .Entity<DevelopmentTool>()
                 .HasRequired<Company>(s => s.Company)
-                .WithMany(s => s.Computers)
-                .HasForeignKey(s => s.StoreId)
+                .WithMany(s => s.DevelopmentTools)
                 .WillCascadeOnDelete();
             modelBuilder
                 .Entity<Company>()
-                .HasOptional(x => x.MostPopularComputer);
-
+                .HasOptional(x => x.MostPopularDevelopmentTool);
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
         }
 
-        public DbSet<Computer> Computers { get; set; }
+        public DbSet<DevelopmentTool> DevelopmentTools { get; set; }
         public DbSet<Company> Companies { get; set; }
     }
 }

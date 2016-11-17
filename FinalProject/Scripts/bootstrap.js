@@ -345,7 +345,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
   Carousel.prototype.getActiveIndex = function () {
-    this.$active = this.$element.find('.item.active')
+    this.$active = this.$element.find('.developmentTool.active')
     this.$items  = this.$active.parent().children()
 
     return this.$items.index(this.$active)
@@ -387,7 +387,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
   }
 
   Carousel.prototype.slide = function (type, next) {
-    var $active   = this.$element.find('.item.active')
+    var $active   = this.$element.find('.developmentTool.active')
     var $next     = next || $active[type]()
     var isCycling = this.interval
     var direction = type == 'next' ? 'left' : 'right'
@@ -396,7 +396,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
     if (!$next.length) {
       if (!this.options.wrap) return
-      $next = this.$element.find('.item')[fallback]()
+      $next = this.$element.find('.developmentTool')[fallback]()
     }
 
     this.sliding = true
