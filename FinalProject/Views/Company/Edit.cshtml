@@ -4,15 +4,12 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Store</h4>
+        <h3><b>Edit</b> Companie Details For: @Html.DisplayFor(model => model.Name)</h3>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.CompanyId)
@@ -38,22 +35,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Location)
                 @Html.ValidationMessageFor(model => model.Location)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HasSecurity, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HasSecurity)
-                @Html.ValidationMessageFor(model => model.HasSecurity)
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.HasCrippleEntrance, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HasCrippleEntrance)
-                @Html.ValidationMessageFor(model => model.HasCrippleEntrance)
             </div>
         </div>
 

@@ -25,6 +25,14 @@
     </div>
     @Html.DisplayFor(model => model.Revenue)$
 </div>
+
+<div class="companyDetails" style="position: relative; left: 40px; margin: 10px 0;">
+
+    <div style="font-weight: bold; margin: 0 10px;">
+        @Html.DisplayNameFor(model => model.Description):
+    </div>
+    @Html.DisplayFor(model => model.Description)
+</div>
 <div class="companyDetails" style="position: relative; left: 40px">
     @if (User.IsInRole("Admin"))
     {
