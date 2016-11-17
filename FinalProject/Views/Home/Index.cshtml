@@ -18,7 +18,10 @@
 <div class="FlexRow" style=" flex-wrap: wrap; justify-content: space-around;">
     @foreach (var item in Model)
     {
-        <div style="margin: 10px; flex: 1;"><img src="@Html.DisplayFor(model => item.ImagePath)" style="height: 100px;"/>
+        <div style="margin: 10px; flex: 1;">
+            <a href='@Url.Action("Details", "Company", new { id = item.CompanyId })'>
+            <img src="@Html.DisplayFor(model => item.ImagePath)" style="height: 100px;"/>
+            </a>
         </div>
     }
 </div>
