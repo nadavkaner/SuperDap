@@ -1,0 +1,62 @@
+﻿@using FinalProject.Controllers
+@model SearchResponseModel
+
+@helper GetAdministratorActions(AnswerModel item, string controller)
+{
+    if (User.IsInRole("Admin"))
+    {
+        <a href='@Url.Action("Edit", controller, new {id = item.Id})'>Edit</a>
+        <span> | </span>
+        <a href='@Url.Action("Delete", controller, new {id = item.Id})'>Delete</a>
+    }
+}
+           @{ ViewBag.Title = "Search"; }
+
+<h2>Search Results</h2>
+
+<div>
+    <strong>Results</strong><br />
+</div>
+
+<br />
+
+@if (Model.Data.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Data)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @if (item.Type == AnswerModelType.Company)
+                    {
+                        <a href='@Url.Action("Details", "Company", new {id = item.Id})'>Details</a>
+                        <span> | </span>
+                        @GetAdministratorActions(item, "Company")
+                    }
+                    else
+                    {
+                        <a href='@Url.Action("Details", "DevelopmentTool", new {id = item.Id})'>Details</a>
+                        <span> | </span>
+                        @GetAdministratorActions(item, "DevelopmentTool")
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <span>No Results</span>
+}
+
