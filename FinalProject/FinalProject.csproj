@@ -177,6 +177,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BuyController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DevelopmentToolController.cs" />
@@ -265,6 +266,7 @@
     </Content>
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Buy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

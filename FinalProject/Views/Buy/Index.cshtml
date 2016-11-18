@@ -1,0 +1,39 @@
+﻿
+
+
+
+
+
+
+
+<h2>Shop From Ebay</h2>
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Product Full Name</th>
+            <th>Price</th>
+            <th>Buy</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            int counter = 1;
+            foreach (FinalProject.Controllers.BuyController.EbayItem i in ViewBag.ebayResuls)
+            {
+                <tr>
+                    <td>@Html.Raw(counter.ToString())</td>
+                    <td>@Html.Raw(i.name)</td>
+                    <td>@Html.Raw(i.price)</td>
+                    <td><a href="@Html.Raw(i.url)" class="btn btn-primary btn-xs">Buy</a></td>
+                </tr>
+
+                counter++;
+            }
+
+        }
+
+
+    </tbody>
+</table>
