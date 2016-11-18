@@ -16,14 +16,17 @@ namespace FinalProject
             var manager = new UserManager<ApplicationUser>(userStore);
 
             var role = new IdentityUserRole { Role = new IdentityRole("Admin") };
-            var user = new ApplicationUser() { UserName = "admin"};
+            const string adminId = "132bd545-ee26-42fe-b982-390989bfe9c9";
+            var user = new ApplicationUser() {Id = adminId, UserName = "admin"};
             user.Roles.Add(role);
             IdentityResult result = manager.Create(user, "123123");
 
-            var role2 = new IdentityUserRole { Role = new IdentityRole("Noob") };
-            var user2 = new ApplicationUser() { UserName = "noob" };
-            user.Roles.Add(role2);
+            var role2 = new IdentityUserRole { Role = new IdentityRole("ApplicationUser") };
+            const string regularUserid = "b96ce3c0-436b-4eba-8c20-f0af0030a0f2";
+            var user2 = new ApplicationUser() { Id = regularUserid, UserName = "regular" };
+            user2.Roles.Add(role2);
             IdentityResult result2 = manager.Create(user2, "123123");
+
             var companies = CreateCompanies();
 
             companies.ForEach(s => context.Companies.Add(s));
