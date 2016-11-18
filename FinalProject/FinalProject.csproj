@@ -180,7 +180,7 @@
     <Compile Include="Controllers\DevelopmentToolController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
-    <Compile Include="DbInitializer.cs" />
+    <Compile Include="DbInit.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

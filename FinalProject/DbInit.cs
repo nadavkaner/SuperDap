@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace FinalProject
 {
-    public class DbInitializer : DropCreateDatabaseAlways<Context>
+    public class DbInit : DropCreateDatabaseAlways<Context>
     {
         protected override void Seed(Context context)
         {
@@ -67,6 +67,9 @@ namespace FinalProject
                     Id = Guid.NewGuid(),
                     Name = "WebStorm",
                     Description = "WebStorm is cool",
+                    ImagePath = "https://confluence.jetbrains.com/download/attachments/15797318/WI?version=2&modificationDate=1449749629000&api=v2",
+                    SiteUrl = "https://jetbrains.com/webstorm",
+                    Price = 120,
                     LastUpdate = DateTime.Now,
                     Company = jetBrains,
                     NumberOfRaters = 3,
@@ -79,6 +82,7 @@ namespace FinalProject
                     Id = Guid.NewGuid(),
                     Name = "Google App Engine",
                     Description = "App Engine's environments, the standard environment and the flexible environment (in beta), support a host of programming languages.",
+                    Price = 0,
                     LastUpdate = DateTime.Now,
                     Company = google,
                     NumberOfRaters = 3,
@@ -91,6 +95,7 @@ namespace FinalProject
                     Id = Guid.NewGuid(),
                     Name = "Visual Studio",
                     Description = "Fully-featured IDE, productivity for any apps",
+                    Price = 0,
                     LastUpdate = DateTime.Now,
                     Company = microsoft,
                     NumberOfRaters = 3,

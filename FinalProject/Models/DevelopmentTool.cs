@@ -16,6 +16,8 @@ namespace FinalProject.Models
         [Required]
         public string Description { set; get; }
 
+        public string ImagePath { set; get; }
+
         [Required]
         public int Price { get; set; }
 
@@ -29,7 +31,7 @@ namespace FinalProject.Models
         public int NumberOfRaters { get; set; }
 
         [DefaultValue(0)]
-        public int Rate { get; set; }
+        public decimal Rate { get; set; }
 
         public virtual Company Company { get; set; }
 
@@ -38,6 +40,7 @@ namespace FinalProject.Models
 //        public virtual IList<Rating> Ratings { get; set; }
 
         public SourceCodeLicense SourceCodeLicense { get; set; }
+        public string SiteUrl { get; set; }
     }
 
     public class Rating

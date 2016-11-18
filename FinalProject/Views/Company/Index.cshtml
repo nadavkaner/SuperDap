@@ -10,16 +10,14 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<div class="row">
-    <strong>Filters</strong>
-</div>
-<div class="row">
+<div >
+    <strong>Filters</strong><br/>
     Location: @foreach (var location in Model.AvailableLocations)
               {
                   @Html.ActionLink(location, "Index", new { location = location, hasCrippleEntrance = Model.CrippleEntranceFilter, hasSecurity = Model.SecurityFilter })<span>, </span>
               }
 </div>
-<div class="row">
+<div>
     @Html.ActionLink("Clear Filters", "Index")
 </div>
 

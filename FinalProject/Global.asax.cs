@@ -11,7 +11,7 @@ namespace FinalProject
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new DbInitializer());
+            Database.SetInitializer(new DbInit());
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
