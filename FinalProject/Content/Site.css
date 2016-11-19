@@ -39,5 +39,8 @@ input[type="checkbox"].input-validation-error { border: 0 none; }
 }
 
 .search-form {
-    display: inherit;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-content: center;
 }
