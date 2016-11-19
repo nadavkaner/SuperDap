@@ -197,6 +197,21 @@ namespace FinalProject.Controllers
             _db.SaveChanges();
 
             company = _db.Companies.Find(id);
+            foreach (var year in company.RevenuePerYears.ToList())
+            {
+                company.RevenuePerYears.Remove(year);
+            }
+
+            foreach (var developmentTool in company.DevelopmentTools)
+            {
+                developmentTool.Comments.Clear();
+            }
+
+            foreach (var developmentTool in company.DevelopmentTools.ToList())
+            {
+                _db.DevelopmentTools.Remove(developmentTool);
+            }
+            _db.SaveChanges();
             _db.Companies.Remove(company);
             _db.SaveChanges();
             return RedirectToAction("Index");
