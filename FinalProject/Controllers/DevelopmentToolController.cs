@@ -191,6 +191,10 @@ namespace FinalProject.Controllers
             }
 
             var  developmentTool = _db.DevelopmentTools.Find(id);
+            foreach (var comments in developmentTool.Comments.ToList())
+            {
+                developmentTool.Comments.Remove(comments);
+            }
             _db.DevelopmentTools.Remove(developmentTool);
             _db.SaveChanges();
 
