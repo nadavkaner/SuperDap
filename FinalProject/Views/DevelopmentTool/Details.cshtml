@@ -1,4 +1,6 @@
-﻿@model FinalProject.Models.DevelopmentTool
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@model FinalProject.Models.DevelopmentTool
 
 @{
     ViewBag.Title = "Details";
@@ -55,12 +57,67 @@
         </dt>
 
         <dd>
-           @Html.DisplayFor(model => model.Rate) / 10
+            @Html.DisplayFor(model => model.Rate) / 10
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<hr />
+<h4>comments:</h4>
+
+@if (Model.Comments == null || !Model.Comments.Any())
+{
+    <h5 style="color: gray">No comments</h5>
+}
+else
+{ 
+<table class="table">
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            Text
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Comments.OrderBy(x=> x.Date))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @if (User.IsInRole("Admin") || User.Identity.GetUserId() == item.User.Id)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+                else
+                {
+                   <div style="color: gray">No Actions</div>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+}
+
+
+

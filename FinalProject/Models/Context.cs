@@ -25,11 +25,17 @@ namespace FinalProject.Models
                 .WithMany(s => s.DevelopmentTools)
                 .WillCascadeOnDelete();
             modelBuilder
+                .Entity<DevelopmentTool>()
+                .HasMany(x => x.Comments);
+            modelBuilder
                 .Entity<Company>()
                 .HasOptional(x => x.MostPopularDevelopmentTool);
             modelBuilder
                 .Entity<Company>()
                 .HasMany(x => x.RevenuePerYears);
+            modelBuilder
+                .Entity<Comment>()
+                .HasRequired(x => x.User);
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });

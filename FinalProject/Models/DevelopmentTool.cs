@@ -35,25 +35,24 @@ namespace FinalProject.Models
 
         public virtual Company Company { get; set; }
 
-//        public virtual IList<Tag> Tags { get; set; }
-
-//        public virtual IList<Rating> Ratings { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
         public SourceCodeLicense SourceCodeLicense { get; set; }
         public string SiteUrl { get; set; }
     }
 
-    public class Rating
+    public class Comment
     {
         [Key]
         public Guid Id { get; set; }
+    
+        public string Text { get; set; }
 
         [Required]
-        public int RateNumber { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
-        public string Comment { get; set; }
-
-        public ApplicationUser User { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
     }
 
     public class Tag

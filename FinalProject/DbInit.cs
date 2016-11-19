@@ -17,15 +17,15 @@ namespace FinalProject
 
             var role = new IdentityUserRole { Role = new IdentityRole("Admin") };
             const string adminId = "132bd545-ee26-42fe-b982-390989bfe9c9";
-            var user = new ApplicationUser() {Id = adminId, UserName = "admin"};
-            user.Roles.Add(role);
-            IdentityResult result = manager.Create(user, "123123");
+            var adminUser = new ApplicationUser() { Id = adminId, UserName = "admin" };
+            adminUser.Roles.Add(role);
+            IdentityResult result = manager.Create(adminUser, "123123");
 
             var role2 = new IdentityUserRole { Role = new IdentityRole("ApplicationUser") };
             const string regularUserid = "b96ce3c0-436b-4eba-8c20-f0af0030a0f2";
-            var user2 = new ApplicationUser() { Id = regularUserid, UserName = "regular" };
-            user2.Roles.Add(role2);
-            IdentityResult result2 = manager.Create(user2, "123123");
+            var regularUser = new ApplicationUser() { Id = regularUserid, UserName = "regular" };
+            regularUser.Roles.Add(role2);
+            IdentityResult result2 = manager.Create(regularUser, "123123");
 
             var companies = CreateCompanies();
 
@@ -78,7 +78,13 @@ namespace FinalProject
                     NumberOfRaters = 3,
                     Rate = 5,
                     NumberOfUsers = 50000,
-                    SourceCodeLicense = SourceCodeLicense.ClosedSource
+                    SourceCodeLicense = SourceCodeLicense.ClosedSource,
+                    Comments = new List<Comment>
+                    {
+                        new Comment { Id = Guid.NewGuid(), Text = "Awsome development tool, i use iut all the time", User = adminUser, Date = DateTime.Now.AddSeconds(0) },
+                        new Comment { Id = Guid.NewGuid(), Text = "Yep, i build some exrecises for colman with it, was great", User = regularUser, Date = DateTime.Now.AddSeconds(10) },
+                        new Comment { Id = Guid.NewGuid(), Text = "I'm in the theard year there!", User = adminUser, Date = DateTime.Now.AddSeconds(20) },
+                    }
                 },
                 new DevelopmentTool
                 {
