@@ -42,14 +42,22 @@ namespace FinalProject
                 {
                     Id = Guid.NewGuid(),
                     Name = "Resharper",
-                    Description = "Resharper is cool",
+                    Description = "isual Studio Extension for .NET Developers",
+                    ImagePath = "http://www.jarloo.com/wp-content/uploads/2011/01/resharper.png",
+                    SiteUrl = "https://www.jetbrains.com/resharper/",
                     Price = 4400,
                     LastUpdate = DateTime.Now,
                     Company = jetBrains,
                     NumberOfRaters = 3,
                     Rate = 5,
                     NumberOfUsers = 50000,
-                    SourceCodeLicense = SourceCodeLicense.ClosedSource
+                    SourceCodeLicense = SourceCodeLicense.ClosedSource,
+                    Comments = new List<Comment>
+                    {
+                        new Comment { Id = Guid.NewGuid(), Text = "Awsome development tool, i use iut all the time", User = adminUser, Date = DateTime.Now.AddSeconds(0) },
+                        new Comment { Id = Guid.NewGuid(), Text = "Yep, i build some exrecises for colman with it, was great", User = regularUser, Date = DateTime.Now.AddSeconds(10) },
+                        new Comment { Id = Guid.NewGuid(), Text = "I'm in the theard year there!", User = adminUser, Date = DateTime.Now.AddSeconds(20) },
+                    }
                     
                 },
                 new DevelopmentTool
@@ -57,13 +65,21 @@ namespace FinalProject
                     Id = Guid.NewGuid(),
                     Name = "IntelliJ",
                     Price = 2000,
-                    Description = "IntelliJ is cool",
+                    Description = "The most intelligent Java IDE",
+                    SiteUrl = "https://www.jetbrains.com/idea/",
+                    ImagePath = "https://pbs.twimg.com/profile_images/788051037164867585/VgUZMhp9.jpg",
                     LastUpdate = DateTime.Now,
                     Company = jetBrains,
                     NumberOfRaters = 3,
                     Rate = 5,
                     NumberOfUsers = 50000,
-                    SourceCodeLicense = SourceCodeLicense.ClosedSource
+                    SourceCodeLicense = SourceCodeLicense.ClosedSource,
+                    Comments = new List<Comment>
+                    {
+                        new Comment { Id = Guid.NewGuid(), Text = "Awsome development tool, i use iut all the time 4 ", User = adminUser, Date = DateTime.Now.AddSeconds(0) },
+                        new Comment { Id = Guid.NewGuid(), Text = "Yep, i build some exrecises for colman with it, was great 4", User = regularUser, Date = DateTime.Now.AddSeconds(10) },
+                        new Comment { Id = Guid.NewGuid(), Text = "I'm in the theard year there!  444 <- dif number! see?", User = adminUser, Date = DateTime.Now.AddSeconds(20) },
+                    }
                 },
                 new DevelopmentTool
                 {
@@ -81,9 +97,9 @@ namespace FinalProject
                     SourceCodeLicense = SourceCodeLicense.ClosedSource,
                     Comments = new List<Comment>
                     {
-                        new Comment { Id = Guid.NewGuid(), Text = "Awsome development tool, i use iut all the time", User = adminUser, Date = DateTime.Now.AddSeconds(0) },
-                        new Comment { Id = Guid.NewGuid(), Text = "Yep, i build some exrecises for colman with it, was great", User = regularUser, Date = DateTime.Now.AddSeconds(10) },
-                        new Comment { Id = Guid.NewGuid(), Text = "I'm in the theard year there!", User = adminUser, Date = DateTime.Now.AddSeconds(20) },
+                        new Comment { Id = Guid.NewGuid(), Text = "Awsome development tool, i use iut all the time 1", User = adminUser, Date = DateTime.Now.AddSeconds(0) },
+                        new Comment { Id = Guid.NewGuid(), Text = "Yep, i build some exrecises for colman with it, was great 1", User = regularUser, Date = DateTime.Now.AddSeconds(10) },
+                        new Comment { Id = Guid.NewGuid(), Text = "I'm in the theard year there! 1", User = adminUser, Date = DateTime.Now.AddSeconds(20) },
                     }
                 },
                 new DevelopmentTool
@@ -91,26 +107,42 @@ namespace FinalProject
                     Id = Guid.NewGuid(),
                     Name = "Google App Engine",
                     Description = "App Engine's environments, the standard environment and the flexible environment (in beta), support a host of programming languages.",
+                    SiteUrl = "https://appengine.google.com/",
+                    ImagePath = "https://gae-angular-material-starter.appspot.com/p/modules/core/img/appengine-logo.png",
                     Price = 0,
                     LastUpdate = DateTime.Now,
                     Company = google,
                     NumberOfRaters = 3,
                     Rate = 5,
                     NumberOfUsers = 50000,
-                    SourceCodeLicense = SourceCodeLicense.OpenSource
+                    SourceCodeLicense = SourceCodeLicense.OpenSource,
+                    Comments = new List<Comment>
+                    {
+                        new Comment { Id = Guid.NewGuid(), Text = "Awsome development tool, i use iut all the time 2 ", User = adminUser, Date = DateTime.Now.AddSeconds(0) },
+                        new Comment { Id = Guid.NewGuid(), Text = "Yep, i build some exrecises for colman with it, was great 2", User = regularUser, Date = DateTime.Now.AddSeconds(10) },
+                        new Comment { Id = Guid.NewGuid(), Text = "I'm in the theard year there! 2 222", User = adminUser, Date = DateTime.Now.AddSeconds(20) },
+                    }
                 },
                 new DevelopmentTool
                 {
                     Id = Guid.NewGuid(),
                     Name = "Visual Studio",
                     Description = "Fully-featured IDE, productivity for any apps",
+                    ImagePath = "https://pbs.twimg.com/profile_images/505104774153256960/SR2hUhQN_400x400.png",
+                    SiteUrl = "https://www.visualstudio.com/",
                     Price = 0,
                     LastUpdate = DateTime.Now,
                     Company = microsoft,
                     NumberOfRaters = 3,
                     Rate = 5,
                     NumberOfUsers = 50000,
-                    SourceCodeLicense = SourceCodeLicense.OpenSource
+                    SourceCodeLicense = SourceCodeLicense.OpenSource,
+                    Comments = new List<Comment>
+                    {
+                        new Comment { Id = Guid.NewGuid(), Text = "Awsome development tool, i use iut all the time3", User = adminUser, Date = DateTime.Now.AddSeconds(0) },
+                        new Comment { Id = Guid.NewGuid(), Text = "Yep, i build some exrecises for colman with it, was great3", User = regularUser, Date = DateTime.Now.AddSeconds(10) },
+                        new Comment { Id = Guid.NewGuid(), Text = "I'm in the theard year there 3!  3", User = adminUser, Date = DateTime.Now.AddSeconds(20) },
+                    }
                 }
             };
 
