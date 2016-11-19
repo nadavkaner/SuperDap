@@ -42,7 +42,7 @@ namespace FinalProject
                 {
                     Id = Guid.NewGuid(),
                     Name = "Resharper",
-                    Description = "isual Studio Extension for .NET Developers",
+                    Description = "Visual Studio Extension for .NET Developers",
                     ImagePath = "http://www.jarloo.com/wp-content/uploads/2011/01/resharper.png",
                     SiteUrl = "https://www.jetbrains.com/resharper/",
                     Price = 4400,
@@ -85,7 +85,7 @@ namespace FinalProject
                 {
                     Id = Guid.NewGuid(),
                     Name = "WebStorm",
-                    Description = "WebStorm is cool",
+                    Description = "Lightweight yet powerful IDE, perfectly equipped for complex client-side development and server-side development with Node.js",
                     ImagePath = "https://confluence.jetbrains.com/download/attachments/15797318/WI?version=2&modificationDate=1449749629000&api=v2",
                     SiteUrl = "https://jetbrains.com/webstorm",
                     Price = 120,
