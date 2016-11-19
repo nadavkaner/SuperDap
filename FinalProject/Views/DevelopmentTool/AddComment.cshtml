@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+@model FinalProject.Controllers.LeaveACommentModel
+
+@{
+    ViewBag.Title = "Add Comment For " + Model.DevToolName;
+}
+<h3>Add Comment For @Model.DevToolName</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin: 15px">
+        @Html.HiddenFor(model => model.DevToolId)
+        @Html.HiddenFor(model => model.DevToolName)
+        <div class="form-group" style="display: flex; align-content: center; flex-direction: Row; justify-content: space-between">
+            @Html.LabelFor(model => model.Text, new {@style = "align-self: center; margin-bottom: 0;"})
+            <div style="flex: 2; margin: 1px; align-self: center;">
+                @Html.EditorFor(model => model.Text)
+            </div>
+            <div>
+                <input type="submit" value="Add Comment" class="btn btn-default"/>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.Text)
+    </div>
+}
+
+<style>
+    .text-box {
+        max-width: none;
+        width: 100%;
+    }
+</style>
+
+

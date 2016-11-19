@@ -74,50 +74,65 @@
     <h5 style="color: gray">No comments</h5>
 }
 else
-{ 
-<table class="table">
-    <tr>
-        <th>
-            User
-        </th>
-        <th>
-            Text
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Actions
-        </th>
-    </tr>
-
-    @foreach (var item in Model.Comments.OrderBy(x=> x.Date))
-    {
+{
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @if (User.IsInRole("Admin") || User.Identity.GetUserId() == item.User.Id)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                }
-                else
-                {
-                   <div style="color: gray">No Actions</div>
-                }
-            </td>
+            <th>
+                User
+            </th>
+            <th>
+                Text
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Actions
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model.Comments.OrderBy(x => x.Date))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin") || User.Identity.GetUserId() == item.User.Id)
+                    {
+                        @Html.ActionLink("Delete", "DeleteComment", new {id = item.Id})
+                    }
+                    else
+                    {
+                        <div style="color: gray">No Actions</div>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
 }
+@if (User.Identity.IsAuthenticated)
+{
+    @Html.ActionLink("Add comment", "AddComment", new {id = Model.Id})
+}
+else
+{
+    <div>
+        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        or
+        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        to leave a comment.
+    </div>
+    
+}
+
 
 
 

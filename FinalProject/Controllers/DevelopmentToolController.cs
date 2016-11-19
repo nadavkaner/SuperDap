@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using FinalProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.Controllers
 {
@@ -147,6 +148,32 @@ namespace FinalProject.Controllers
             return View(developmentTool);
         }
 
+        // GET: /DevelopmentTool/DeleteComment/5
+        public ActionResult DeleteComment(Guid? id)
+        {
+            if (User == null || !User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Home/Index");
+            }
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var userIsAdmin = User.IsInRole("Admin");
+            var developmentTools = _db.DevelopmentTools.Where(x => x.Comments.Any()).ToList();
+            var devToolcomment = developmentTools.SelectMany(x => x.Comments.Select(y => new {devtool = x, comment = y}))
+                    .FirstOrDefault(z => z.comment.Id == id);
+            if (devToolcomment == null || (!userIsAdmin && devToolcomment.comment.User.Id != User.Identity.GetUserId()))
+            {
+                return HttpNotFound();
+            }
+            devToolcomment.devtool.Comments.Remove(devToolcomment.comment);
+            _db.SaveChanges();
+            return RedirectToAction("Details",new {id = devToolcomment.devtool.Id});
+        }
+
         // POST: /DevelopmentTool/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -179,11 +206,77 @@ namespace FinalProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult AddComment(Guid? id)
+        {
+            if (User == null || !User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Home/Index");
+            }
+            
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var devtool = _db.DevelopmentTools.FirstOrDefault(x => x.Id == id);
+            if (devtool == null)
+            {
+                return HttpNotFound();
+            }
+            return View(new LeaveACommentModel{DevToolId = devtool.Id, DevToolName = devtool.Name});
+        }
+
+
+        // POST: /DevelopmentTool/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddComment([Bind(Include = "Text, DevToolId, DevToolName")] LeaveACommentModel leaveACommentModel)
+        {
+            if (User == null || !User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Home/Index");
+            }
+            var applicationUser = _db.Users.Find(User.Identity.GetUserId());
+            if (applicationUser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (leaveACommentModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (!string.IsNullOrEmpty(leaveACommentModel.Text))
+            {
+                var devtool = _db.DevelopmentTools.FirstOrDefault(x => x.Id == leaveACommentModel.DevToolId);
+                if (devtool == null)
+                {
+                    return HttpNotFound();
+                }
+                devtool.Comments.Add(new Comment{Id = Guid.NewGuid(), Date = DateTime.Now, Text = leaveACommentModel.Text, User = applicationUser});
+                _db.SaveChanges();
+                return RedirectToAction("Details", new { id = leaveACommentModel.DevToolId});
+            }
+            else
+            {
+                ModelState.AddModelError("Text", "Enter text for a comment");
+                return View(leaveACommentModel);
+            }
+        }
     }
 
     public class DevelopmentToolsModel
     {
         public List<DevelopmentTool> DevTools { get; set; }
+    }
+
+    public class LeaveACommentModel
+    {
+        public string DevToolName { get; set; }
+        public Guid DevToolId { get; set; }
+        public string Text { get; set; }
     }
 
     public class ItemSearchCriteria
