@@ -122,7 +122,7 @@ namespace FinalProject.Controllers
             CompanyViewModel companyVm = new CompanyViewModel()
             {
                 Name = company.Name,
-                MostPopularDevelopmentTool = company.MostPopularDevelopmentTool.Id.ToString(),
+                MostPopularDevelopmentTool = company.MostPopularDevelopmentTool != null ? company.MostPopularDevelopmentTool.Id.ToString() : "",
                 CompanyId = company.CompanyId,
                 DevelopmentTools = company.DevelopmentTools,
                 Coordinates = company.Coordinates,
@@ -152,7 +152,8 @@ namespace FinalProject.Controllers
                 original.Description = company.Description;
                 original.Location = company.Location;
                 original.Name = company.Name;
-                original.MostPopularDevelopmentTool = _db.DevelopmentTools.Find(Guid.Parse(company.MostPopularDevelopmentTool));
+                original.MostPopularDevelopmentTool = !string.IsNullOrEmpty(company.MostPopularDevelopmentTool) ?
+                    _db.DevelopmentTools.Find(Guid.Parse(company.MostPopularDevelopmentTool)) : null;
                 original.TotalRevenue = company.TotalRevenue;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
