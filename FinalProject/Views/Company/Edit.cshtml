@@ -1,4 +1,4 @@
-﻿@model FinalProject.Models.Company
+﻿@model FinalProject.Controllers.CompanyViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -9,7 +9,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h3><b>Edit</b> Companie Details For: @Html.DisplayFor(model => model.Name)</h3>
+        <h3><b>Edit</b> Company Details For: @Html.DisplayFor(model => model.Name)</h3>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.CompanyId)
@@ -23,18 +23,34 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)
-                @Html.ValidationMessageFor(model => model.Description)
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Location, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Location)
                 @Html.ValidationMessageFor(model => model.Location)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.MostPopularDevelopmentTool, "Most Popular Dev Tool", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MostPopularDevelopmentTool, new SelectList(ViewBag.devProducts, "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.MostPopularDevelopmentTool)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalRevenue, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalRevenue)
+                @Html.ValidationMessageFor(model => model.TotalRevenue)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "text-area-size" })
+                @Html.ValidationMessageFor(model => model.Description)
             </div>
         </div>
 

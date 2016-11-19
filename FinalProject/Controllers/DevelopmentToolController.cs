@@ -184,15 +184,14 @@ namespace FinalProject.Controllers
                 return Redirect("/Home/Index");
             }
 
-            var conflictingStores = _db.Companies.Where(x => x.MostPopularDevelopmentTool.Id == id).ToList();
-            foreach (var store in conflictingStores)
+            var companies = _db.Companies.Where(x => x.MostPopularDevelopmentTool.Id == id).ToList();
+            foreach (var company in companies)
             {
-                store.MostPopularDevelopmentTool = null;
-                store.MostPopularComputerId = Guid.Empty;
+                company.MostPopularDevelopmentTool = null;
             }
 
-            var  item = _db.DevelopmentTools.Find(id);
-            _db.DevelopmentTools.Remove(item);
+            var  developmentTool = _db.DevelopmentTools.Find(id);
+            _db.DevelopmentTools.Remove(developmentTool);
             _db.SaveChanges();
 
             return RedirectToAction("Index");

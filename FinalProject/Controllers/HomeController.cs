@@ -10,15 +10,8 @@ namespace FinalProject.Controllers
 
         public ActionResult Index()
         {
-            var items = _db.Companies.Take(8).OrderByDescending(x => x.TotalRevenue).ToList();
-            return View(items);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "This is an aggregate of items from all around the nation. Use this to compare prices from different stores and more.";
-
-            return View();
+            var companies = _db.Companies.Take(8).OrderByDescending(x => x.TotalRevenue).ToList();
+            return View(companies);
         }
     }
 }

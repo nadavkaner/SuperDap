@@ -27,24 +27,31 @@
 </div>
 
 <div class="companyDetails" style="position: relative; left: 40px; margin: 10px 0;">
-
-    <div style="font-weight: bold; margin: 0 10px;">
-        @Html.DisplayNameFor(model => model.Description):
+    <div style="font-weight: bold; margin: 0 10px">
+        Most Popular Dev Tool:
     </div>
-    @Html.DisplayFor(model => model.Description)
-</div>
-<div class="companyDetails" style="position: relative; left: 40px">
-    @if (User.IsInRole("Admin"))
-    {
-        <div style="margin: 10px">@Html.ActionLink("Edit", "Edit", new {id = Model.CompanyId}) </div>
-    }
-    <div style="margin: 10px">@Html.ActionLink("Back to List", "Index") </div>
+    @Html.DisplayFor(model => model.MostPopularDevelopmentTool.Name)
 </div>
 
-<style>
-    .companyDetails {
-        width: 100%;
-        display:flex;
-        flex-direction: row;
-    }
-</style>
+    <div class="companyDetails" style="position: relative; left: 40px; margin: 10px 0;">
+
+        <div style="font-weight: bold; margin: 0 10px;">
+            @Html.DisplayNameFor(model => model.Description):
+        </div>
+        @Html.DisplayFor(model => model.Description)
+    </div>
+    <div class="companyDetails" style="position: relative; left: 40px">
+        @if (User.IsInRole("Admin"))
+        {
+            <div style="margin: 10px">@Html.ActionLink("Edit", "Edit", new { id = Model.CompanyId }) </div>
+        }
+        <div style="margin: 10px">@Html.ActionLink("Back to List", "Index") </div>
+    </div>
+
+    <style>
+        .companyDetails {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+    </style>

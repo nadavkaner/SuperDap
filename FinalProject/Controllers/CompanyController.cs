@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using FinalProject.Models;
 
@@ -89,7 +86,6 @@ namespace FinalProject.Controllers
             {
                 company.CompanyId = Guid.NewGuid();
                 company.MostPopularDevelopmentTool = _db.DevelopmentTools.First();
-                company.MostPopularComputerId = company.MostPopularDevelopmentTool.Id;
                 company.Coordinates = new Coordinates()
                 {
                     Lat = 32.077263,
@@ -120,7 +116,22 @@ namespace FinalProject.Controllers
             {
                 return HttpNotFound();
             }
-            return View(company);
+
+            ViewBag.devProducts = company.DevelopmentTools.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList();
+
+            CompanyViewModel companyVm = new CompanyViewModel()
+            {
+                Name = company.Name,
+                MostPopularDevelopmentTool = company.MostPopularDevelopmentTool.Id.ToString(),
+                CompanyId = company.CompanyId,
+                DevelopmentTools = company.DevelopmentTools,
+                Coordinates = company.Coordinates,
+                Description = company.Description,
+                Location = company.Location,
+                RevenuePerYears = company.RevenuePerYears,
+                TotalRevenue = company.TotalRevenue
+            };
+            return View(companyVm);
         }
 
         // POST: /Company/Edit/5
@@ -128,7 +139,7 @@ namespace FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CompanyId,Name,Description,Location,HasCrippleEntrance,HasSecurity")] Company company)
+        public ActionResult Edit(CompanyViewModel company)
         {
             if (User == null || !User.IsInRole("Admin"))
             {
@@ -141,9 +152,12 @@ namespace FinalProject.Controllers
                 original.Description = company.Description;
                 original.Location = company.Location;
                 original.Name = company.Name;
+                original.MostPopularDevelopmentTool = _db.DevelopmentTools.Find(Guid.Parse(company.MostPopularDevelopmentTool));
+                original.TotalRevenue = company.TotalRevenue;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(company);
         }
 
@@ -177,13 +191,12 @@ namespace FinalProject.Controllers
                 return Redirect("/Home/Index");
             }
 
-            var store = _db.Companies.Find(id);
-            store.MostPopularDevelopmentTool = null;
-            store.MostPopularComputerId = Guid.Empty;
+            var company = _db.Companies.Find(id);
+            company.MostPopularDevelopmentTool = null;
             _db.SaveChanges();
 
-            store = _db.Companies.Find(id);
-            _db.Companies.Remove(store);
+            company = _db.Companies.Find(id);
+            _db.Companies.Remove(company);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -210,5 +223,24 @@ namespace FinalProject.Controllers
         public bool? SecurityFilter { get; set; }
         public bool? CrippleEntranceFilter { get; set; }
         public string LocationFilter { get; set; }
+    }
+
+    public class CompanyViewModel
+    {
+        public Guid CompanyId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Location { get; set; }
+        public string MostPopularDevelopmentTool { get; set; }
+        public ICollection<DevelopmentTool> DevelopmentTools { get; set; }
+        public Coordinates Coordinates { get; set; }
+        public double TotalRevenue { get; set; }
+        public ICollection<RevenueForYear> RevenuePerYears { get; set; }
+    }
+
+    public class MostPopularDevelopmentToolViewModel
+    {
+        public string Id { get; set; }
+        
     }
 }

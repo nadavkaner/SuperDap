@@ -17,7 +17,6 @@ namespace FinalProject.Models
         public string Location { get; set; }
 
         public virtual DevelopmentTool MostPopularDevelopmentTool { get; set; }
-        public Guid MostPopularComputerId { get; set; }
         public virtual ICollection<DevelopmentTool> DevelopmentTools { get; set; }
         public Coordinates Coordinates { get; set; }
         public double TotalRevenue { get; set; }
