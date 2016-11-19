@@ -1,4 +1,5 @@
-﻿@using FinalProject.Models
+﻿@using FinalProject.Controllers
+@using FinalProject.Models
 @model FinalProject.Controllers.DevelopmentToolsModel
 
 @{
@@ -15,12 +16,15 @@
     <strong>Filters</strong><br />
     Source Code Licenses: @foreach (var sourceCodeLicenses in Model.AvailableSourceCodeLicenses)
     {
-        @Html.ActionLink(sourceCodeLicenses, "Index", new { sourceCodeLicenses, CompanyName = Model.CompanyNameFilter })<span>, </span>
+        @Html.ActionLink(sourceCodeLicenses, "Index", new { sourceCodeLicenses, CompanyName = Model.CompanyNameFilter, PriceRange = Model.PriceFilter })<span>, </span>
     }<br />
     Company Name: @foreach (var companyName in Model.AvailableCompanyNames)
     {
-        @Html.ActionLink(companyName, "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, companyName })<span>, </span>
-    }
+        @Html.ActionLink(companyName, "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, companyName, PriceRange = Model.PriceFilter })<span>, </span>
+    }<br/>
+    Price:@Html.ActionLink("0-100", "Index", new {SourceCodeLicenses = Model.SourceCodeLicenseFilter, Model.CompanyNameFilter, PriceRange = PriceRange.ZeroToHundred})<span>, </span>
+    @Html.ActionLink("100-1000", "Index", new {SourceCodeLicenses = Model.SourceCodeLicenseFilter, Model.CompanyNameFilter, PriceRange = PriceRange.HundredToThousand })<span>, </span>
+    @Html.ActionLink("1000-10000", "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, Model.CompanyNameFilter, PriceRange = PriceRange.ThousandToTenThousand })<span>, </span>
 
     <br/>@Html.ActionLink("Clear Filters", "Index")
     <br />@Html.ActionLink("group by company", "GroupByCompany")

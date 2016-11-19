@@ -25,35 +25,48 @@ namespace FinalProject.Controllers
             if (!string.IsNullOrWhiteSpace(searchCriteria.SourceCodeLicenses))
             {
                 var sourceCodeLicenses = (SourceCodeLicense)Enum.Parse(typeof(SourceCodeLicense), searchCriteria.SourceCodeLicenses);
-                query = collection.Where(x => x.SourceCodeLicense == sourceCodeLicenses);
+                query = query.Where(x => x.SourceCodeLicense == sourceCodeLicenses);
             }
             if (!string.IsNullOrWhiteSpace(searchCriteria.CompanyName))
             {
-                query = collection.Where(x => x.Company.Name == searchCriteria.CompanyName);
+                query = query.Where(x => x.Company.Name == searchCriteria.CompanyName);
             }
-            if (!string.IsNullOrWhiteSpace(searchCriteria.CompanyName) &&
-                !string.IsNullOrWhiteSpace(searchCriteria.SourceCodeLicenses))
+            if (searchCriteria.PriceRange != PriceRange.None)
             {
-                var sourceCodeLicenses = (SourceCodeLicense)Enum.Parse(typeof(SourceCodeLicense), searchCriteria.SourceCodeLicenses);
-                query = collection.Where(x => x.SourceCodeLicense == sourceCodeLicenses &&
-                                              x.Company.Name == searchCriteria.CompanyName);
+                query = FilterDevToolsByPriceRange(searchCriteria, query);
             }
 
             DevelopmentToolsModel developmentToolsModel = new DevelopmentToolsModel()
             {
-		        AvailableSourceCodeLicenses = Enum.GetNames(typeof(SourceCodeLicense)),
+                AvailableSourceCodeLicenses = Enum.GetNames(typeof(SourceCodeLicense)),
                 AvailableCompanyNames = _db.DevelopmentTools.Select(x => x.Company.Name).Distinct().ToList(),
                 CompanyNameFilter = searchCriteria.CompanyName,
                 SourceCodeLicenseFilter = searchCriteria.SourceCodeLicenses,
+                PriceFilter = searchCriteria.PriceRange,
                 DevTools = query.ToList(),
                 DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
             };
             return View(developmentToolsModel);
         }
 
+        private static IQueryable<DevelopmentTool> FilterDevToolsByPriceRange(DevToolSearchCriteria searchCriteria, IQueryable<DevelopmentTool> collection)
+        {
+            switch (searchCriteria.PriceRange)
+            {
+                case PriceRange.ZeroToHundred:
+                    return collection.Where(x => x.Price >= 0 && x.Price < 100);
+                case PriceRange.HundredToThousand:
+                    return collection.Where(x => x.Price >= 100 && x.Price < 1000);
+                case PriceRange.ThousandToTenThousand:
+                    return collection.Where(x => x.Price >= 1000 && x.Price < 10000);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         private static Dictionary<Company, List<DevelopmentTool>> GetDevToolsGroupedByCompany(IQueryable<DevelopmentTool> query)
         {
-            return query.GroupBy(x=> x.Company).ToDictionary(x=>x.Key, x=> x.ToList());
+            return query.GroupBy(x => x.Company).ToDictionary(x => x.Key, x => x.ToList());
         }
 
         // GET: /DevelopmentTool/GroupByCompany
@@ -66,15 +79,13 @@ namespace FinalProject.Controllers
             {
                 return View(new DevelopmentToolsModel());
             }
-            
+
 
             query = collection;
 
             DevelopmentToolsModel developmentToolsModel = new DevelopmentToolsModel()
             {
-                ShowGroupedBy = true,
-                DevTools = query.ToList(),
-                DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
+                ShowGroupedBy = true, DevTools = query.ToList(), DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
             };
             return View(developmentToolsModel);
         }
@@ -154,7 +165,7 @@ namespace FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Price,LastUpdate,Name,Description,Category")] DevelopmentTool developmentTool)
+        public ActionResult Edit([Bind(Include = "Id,Price,LastUpdate,Name,Description,Category")] DevelopmentTool developmentTool)
         {
             if (User == null || !User.IsInRole("Admin"))
             {
@@ -210,15 +221,14 @@ namespace FinalProject.Controllers
 
             var userIsAdmin = User.IsInRole("Admin");
             var developmentTools = _db.DevelopmentTools.Where(x => x.Comments.Any()).ToList();
-            var devToolcomment = developmentTools.SelectMany(x => x.Comments.Select(y => new {devtool = x, comment = y}))
-                    .FirstOrDefault(z => z.comment.Id == id);
+            var devToolcomment = developmentTools.SelectMany(x => x.Comments.Select(y => new {devtool = x, comment = y})).FirstOrDefault(z => z.comment.Id == id);
             if (devToolcomment == null || (!userIsAdmin && devToolcomment.comment.User.Id != User.Identity.GetUserId()))
             {
                 return HttpNotFound();
             }
             devToolcomment.devtool.Comments.Remove(devToolcomment.comment);
             _db.SaveChanges();
-            return RedirectToAction("Details",new {id = devToolcomment.devtool.Id});
+            return RedirectToAction("Details", new {id = devToolcomment.devtool.Id});
         }
 
         // POST: /DevelopmentTool/Delete/5
@@ -237,7 +247,7 @@ namespace FinalProject.Controllers
                 company.MostPopularDevelopmentTool = null;
             }
 
-            var  developmentTool = _db.DevelopmentTools.Find(id);
+            var developmentTool = _db.DevelopmentTools.Find(id);
             foreach (var comments in developmentTool.Comments.ToList())
             {
                 developmentTool.Comments.Remove(comments);
@@ -263,7 +273,7 @@ namespace FinalProject.Controllers
             {
                 return Redirect("/Home/Index");
             }
-            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -274,7 +284,7 @@ namespace FinalProject.Controllers
             {
                 return HttpNotFound();
             }
-            return View(new LeaveACommentModel{DevToolId = devtool.Id, DevToolName = devtool.Name});
+            return View(new LeaveACommentModel {DevToolId = devtool.Id, DevToolName = devtool.Name});
         }
 
 
@@ -305,9 +315,9 @@ namespace FinalProject.Controllers
                 {
                     return HttpNotFound();
                 }
-                devtool.Comments.Add(new Comment{Id = Guid.NewGuid(), Date = DateTime.Now, Text = leaveACommentModel.Text, User = applicationUser});
+                devtool.Comments.Add(new Comment {Id = Guid.NewGuid(), Date = DateTime.Now, Text = leaveACommentModel.Text, User = applicationUser});
                 _db.SaveChanges();
-                return RedirectToAction("Details", new { id = leaveACommentModel.DevToolId});
+                return RedirectToAction("Details", new {id = leaveACommentModel.DevToolId});
             }
             else
             {
@@ -324,8 +334,10 @@ namespace FinalProject.Controllers
         public Dictionary<Company, List<DevelopmentTool>> DevToolsGroupedByCompany { get; set; }
         public IEnumerable<string> AvailableSourceCodeLicenses { get; set; }
         public IEnumerable<string> AvailableCompanyNames { get; set; }
+        public IEnumerable<string> AvailablePrices { get; set; }
         public string SourceCodeLicenseFilter { get; set; }
         public string CompanyNameFilter { get; set; }
+        public PriceRange PriceFilter { get; set; }
     }
 
     public class LeaveACommentModel
@@ -339,6 +351,14 @@ namespace FinalProject.Controllers
     {
         public string SourceCodeLicenses { get; set; }
         public string CompanyName { get; set; }
+        public PriceRange PriceRange { get; set; }
     }
 
+    public enum PriceRange
+    {
+        None,
+        ZeroToHundred,
+        HundredToThousand,
+        ThousandToTenThousand
+    }
 }
