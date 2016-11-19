@@ -18,7 +18,7 @@
 <div class="FlexRow" style=" flex-wrap: wrap; justify-content: space-around;">
     @foreach (var item in Model)
     {
-        <div style="margin: 10px; flex: 1;">
+        <div class="company-icon" style="margin: 10px; flex: 1;">
             <a href='@Url.Action("Details", "Company", new { id = item.CompanyId })'>
             <img src="@Html.DisplayFor(model => item.ImagePath)" style="height: 100px;"/>
             </a>
@@ -118,6 +118,8 @@
             border-radius: 80px;
             height: 80px;
             width: 80px;
+            -webkit-transition-duration: 1s; /* Safari */
+            transition-duration: 1s;
         }
 
         .employee {
@@ -134,5 +136,13 @@
             justify-content: space-around;
             width: 50%;
             min-width: 300px;
+        }
+
+        .employee-photo:hover {
+            height: 120px;
+            width: 120px;
+            border-radius: 120px;
+            -webkit-transition-duration: 1s; /* Safari */
+            transition-duration: 1s;
         }
     </style>
