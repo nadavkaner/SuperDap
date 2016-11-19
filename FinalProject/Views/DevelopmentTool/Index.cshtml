@@ -12,9 +12,17 @@
 </p>
 
 <div style="margin: 15px 0">
-    <strong>Filters</strong>
+    <strong>Filters</strong><br />
+    Source Code Licenses: @foreach (var sourceCodeLicenses in Model.AvailableSourceCodeLicenses)
+    {
+        @Html.ActionLink(sourceCodeLicenses, "Index", new { sourceCodeLicenses, CompanyName = Model.CompanyNameFilter })<span>, </span>
+    }<br />
+    Company Name: @foreach (var companyName in Model.AvailableCompanyNames)
+    {
+        @Html.ActionLink(companyName, "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, companyName })<span>, </span>
+    }
 
-    <br />@Html.ActionLink("Clear Filters", "Index")
+    <br/>@Html.ActionLink("Clear Filters", "Index")
     <br />@Html.ActionLink("group by company", "GroupByCompany")
 </div>
 

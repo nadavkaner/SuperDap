@@ -13,7 +13,7 @@ namespace FinalProject.Controllers
     {
         private readonly Context _db = new Context();
 
-        public ActionResult Index(ItemSearchCriteria searchCriteria)
+        public ActionResult Index(DevToolSearchCriteria searchCriteria)
         {
             var collection = _db.DevelopmentTools;
             IQueryable<DevelopmentTool> query = collection;
@@ -22,12 +22,29 @@ namespace FinalProject.Controllers
             {
                 return View(new DevelopmentToolsModel());
             }
-            
-
-            query = collection;
+            if (!string.IsNullOrWhiteSpace(searchCriteria.SourceCodeLicenses))
+            {
+                var sourceCodeLicenses = (SourceCodeLicense)Enum.Parse(typeof(SourceCodeLicense), searchCriteria.SourceCodeLicenses);
+                query = collection.Where(x => x.SourceCodeLicense == sourceCodeLicenses);
+            }
+            if (!string.IsNullOrWhiteSpace(searchCriteria.CompanyName))
+            {
+                query = collection.Where(x => x.Company.Name == searchCriteria.CompanyName);
+            }
+            if (!string.IsNullOrWhiteSpace(searchCriteria.CompanyName) &&
+                !string.IsNullOrWhiteSpace(searchCriteria.SourceCodeLicenses))
+            {
+                var sourceCodeLicenses = (SourceCodeLicense)Enum.Parse(typeof(SourceCodeLicense), searchCriteria.SourceCodeLicenses);
+                query = collection.Where(x => x.SourceCodeLicense == sourceCodeLicenses &&
+                                              x.Company.Name == searchCriteria.CompanyName);
+            }
 
             DevelopmentToolsModel developmentToolsModel = new DevelopmentToolsModel()
             {
+		        AvailableSourceCodeLicenses = Enum.GetNames(typeof(SourceCodeLicense)),
+                AvailableCompanyNames = _db.DevelopmentTools.Select(x => x.Company.Name).Distinct().ToList(),
+                CompanyNameFilter = searchCriteria.CompanyName,
+                SourceCodeLicenseFilter = searchCriteria.SourceCodeLicenses,
                 DevTools = query.ToList(),
                 DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
             };
@@ -40,7 +57,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: /DevelopmentTool/GroupByCompany
-        public ActionResult GroupByCompany(ItemSearchCriteria searchCriteria)
+        public ActionResult GroupByCompany(DevToolSearchCriteria searchCriteria)
         {
             var collection = _db.DevelopmentTools;
             IQueryable<DevelopmentTool> query = collection;
@@ -305,6 +322,10 @@ namespace FinalProject.Controllers
         public bool ShowGroupedBy { get; set; }
         public List<DevelopmentTool> DevTools { get; set; }
         public Dictionary<Company, List<DevelopmentTool>> DevToolsGroupedByCompany { get; set; }
+        public IEnumerable<string> AvailableSourceCodeLicenses { get; set; }
+        public IEnumerable<string> AvailableCompanyNames { get; set; }
+        public string SourceCodeLicenseFilter { get; set; }
+        public string CompanyNameFilter { get; set; }
     }
 
     public class LeaveACommentModel
@@ -314,10 +335,10 @@ namespace FinalProject.Controllers
         public string Text { get; set; }
     }
 
-    public class ItemSearchCriteria
+    public class DevToolSearchCriteria
     {
-        public int? PriceRangeFrom { get; set; }
-        public int? PriceRangeTo { get; set; }
+        public string SourceCodeLicenses { get; set; }
+        public string CompanyName { get; set; }
     }
 
 }

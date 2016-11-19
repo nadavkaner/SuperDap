@@ -94,7 +94,7 @@ namespace FinalProject
                     NumberOfRaters = 3,
                     Rate = 5,
                     NumberOfUsers = 50000,
-                    SourceCodeLicense = SourceCodeLicense.ClosedSource,
+                    SourceCodeLicense = SourceCodeLicense.OpenSource,
                     Comments = new List<Comment>
                     {
                         new Comment { Id = Guid.NewGuid(), Text = "Awsome development tool, i use iut all the time 1", User = adminUser, Date = DateTime.Now.AddSeconds(0) },

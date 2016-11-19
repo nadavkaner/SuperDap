@@ -14,7 +14,7 @@
     <strong>Filters</strong><br/>
     Location: @foreach (var location in Model.AvailableLocations)
               {
-                  @Html.ActionLink(location, "Index", new { location = location, hasCrippleEntrance = Model.CrippleEntranceFilter, hasSecurity = Model.SecurityFilter })<span>, </span>
+                  @Html.ActionLink(location, "Index", new {location})<span>, </span>
               }
 </div>
 <div>

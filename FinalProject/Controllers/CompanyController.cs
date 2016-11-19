@@ -37,7 +37,6 @@ namespace FinalProject.Controllers
             var companiesModel = new CompaniesModel()
             {
                 Companies = query.ToList(),
-                LocationFilter = searchCriteria.Location,
                 AvailableLocations = _db.Companies.Select(x => x.Location).Distinct().ToList()
             };
 
@@ -223,7 +222,7 @@ namespace FinalProject.Controllers
         }
     }
 
-    public class CompanySearchCriteria : ItemSearchCriteria
+    public class CompanySearchCriteria
     {
         public string Location { get; set; }
     }
@@ -232,9 +231,6 @@ namespace FinalProject.Controllers
     {
         public IEnumerable<Company> Companies { get; set; }
         public IEnumerable<string> AvailableLocations { get; set; }
-        public bool? SecurityFilter { get; set; }
-        public bool? CrippleEntranceFilter { get; set; }
-        public string LocationFilter { get; set; }
     }
 
     public class CompanyViewModel
