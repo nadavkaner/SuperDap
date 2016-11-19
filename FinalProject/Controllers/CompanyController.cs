@@ -25,22 +25,59 @@ namespace FinalProject.Controllers
                     AvailableLocations = _db.Companies.Select(x => x.Location).Distinct().ToList()
                 });
             }
-            else if (!string.IsNullOrEmpty(searchCriteria.Location))
+
+            if (!string.IsNullOrEmpty(searchCriteria.Location))
             {
-                query = collection.Where(x => x.Location == searchCriteria.Location);
+                query = query.Where(x => x.Location == searchCriteria.Location);
             }
-            else
+            if (searchCriteria.Revenue != RevenueRanges.None)
             {
-                query = collection;
+                query = FilterCompaniesByRevenue(searchCriteria, query);
+            }
+            if (searchCriteria.Employees != EmployeesRanges.None)
+            {
+                query = FilterCompaniesByEmployees(searchCriteria, query);
             }
 
             var companiesModel = new CompaniesModel()
             {
-                Companies = query.ToList(),
-                AvailableLocations = _db.Companies.Select(x => x.Location).Distinct().ToList()
+                Companies = query.ToList(), AvailableLocations = _db.Companies.Select(x => x.Location).Distinct().ToList(),
+                RevenueFilter = searchCriteria.Revenue,
+                LocationFilter = searchCriteria.Location,
+                EmployeesRangesFilter = searchCriteria.Employees
             };
 
             return View(companiesModel);
+        }
+
+        private static IQueryable<Company> FilterCompaniesByRevenue(CompanySearchCriteria searchCriteria, IQueryable<Company> query)
+        {
+            switch (searchCriteria.Revenue)
+            {
+                case RevenueRanges.ZeroToTenThousand:
+                    return query.Where(x => x.TotalRevenue >= 0 && x.TotalRevenue < 10000);
+                case RevenueRanges.TenThousandToHundredThousand:
+                    return query.Where(x => x.TotalRevenue >= 10000 && x.TotalRevenue < 100000);
+                case RevenueRanges.HundredThousandToMilion:
+                    return query.Where(x => x.TotalRevenue >= 100000 && x.TotalRevenue < 1000000);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static IQueryable<Company> FilterCompaniesByEmployees(CompanySearchCriteria searchCriteria, IQueryable<Company> query)
+        {
+            switch (searchCriteria.Employees)
+            {
+                case EmployeesRanges.ZeroToThousand:
+                    return query.Where(x => x.NumberOfEmployees >= 0 && x.NumberOfEmployees < 1000);
+                case EmployeesRanges.ThousandToTenThousand:
+                    return query.Where(x => x.NumberOfEmployees >= 1000 && x.NumberOfEmployees < 10000);
+                case EmployeesRanges.TenThousandToFiftyThousand:
+                    return query.Where(x => x.NumberOfEmployees >= 10000 && x.NumberOfEmployees < 50000);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         // GET: /Company/Details/5
@@ -127,20 +164,11 @@ namespace FinalProject.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.devProducts = company.DevelopmentTools.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList();
+            ViewBag.devProducts = company.DevelopmentTools.Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Name}).ToList();
 
             CompanyViewModel companyVm = new CompanyViewModel()
             {
-                Name = company.Name,
-                MostPopularDevelopmentTool = company.MostPopularDevelopmentTool != null ? company.MostPopularDevelopmentTool.Id.ToString() : "",
-                CompanyId = company.CompanyId,
-                DevelopmentTools = company.DevelopmentTools,
-                Coordinates = company.Coordinates,
-                Description = company.Description,
-                Location = company.Location,
-                RevenuePerYears = company.RevenuePerYears,
-                TotalRevenue = company.TotalRevenue,
-                ImagePath = company.ImagePath
+                Name = company.Name, MostPopularDevelopmentTool = company.MostPopularDevelopmentTool != null ? company.MostPopularDevelopmentTool.Id.ToString() : "", CompanyId = company.CompanyId, DevelopmentTools = company.DevelopmentTools, Coordinates = company.Coordinates, Description = company.Description, Location = company.Location, RevenuePerYears = company.RevenuePerYears, TotalRevenue = company.TotalRevenue, ImagePath = company.ImagePath
             };
             return View(companyVm);
         }
@@ -167,13 +195,12 @@ namespace FinalProject.Controllers
                 original.Location = company.Location;
                 original.Coordinates = company.Coordinates;
                 original.Name = company.Name;
-                original.MostPopularDevelopmentTool = !string.IsNullOrEmpty(company.MostPopularDevelopmentTool) ?
-                    _db.DevelopmentTools.Find(Guid.Parse(company.MostPopularDevelopmentTool)) : null;
+                original.MostPopularDevelopmentTool = !string.IsNullOrEmpty(company.MostPopularDevelopmentTool) ? _db.DevelopmentTools.Find(Guid.Parse(company.MostPopularDevelopmentTool)) : null;
                 original.TotalRevenue = company.TotalRevenue;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.devProducts = _db.Companies.Find(company.CompanyId).DevelopmentTools.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList();
+            ViewBag.devProducts = _db.Companies.Find(company.CompanyId).DevelopmentTools.Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Name}).ToList();
             return View(company);
         }
 
@@ -261,12 +288,33 @@ namespace FinalProject.Controllers
     public class CompanySearchCriteria
     {
         public string Location { get; set; }
+        public RevenueRanges Revenue { get; set; }
+        public EmployeesRanges Employees { get; set; }
     }
 
     public class CompaniesModel
     {
         public IEnumerable<Company> Companies { get; set; }
         public IEnumerable<string> AvailableLocations { get; set; }
+        public string LocationFilter { get; set; }
+        public RevenueRanges RevenueFilter { get; set; }
+        public EmployeesRanges EmployeesRangesFilter { get; set; }
+    }
+
+    public enum RevenueRanges
+    {
+        None,
+        ZeroToTenThousand,
+        TenThousandToHundredThousand,
+        HundredThousandToMilion
+    }
+
+    public enum EmployeesRanges
+    {
+        None,
+        ZeroToThousand,
+        ThousandToTenThousand,
+        TenThousandToFiftyThousand
     }
 
     public class CompanyViewModel
@@ -286,6 +334,5 @@ namespace FinalProject.Controllers
     public class MostPopularDevelopmentToolViewModel
     {
         public string Id { get; set; }
-        
     }
 }

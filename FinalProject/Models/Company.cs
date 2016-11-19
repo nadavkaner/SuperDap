@@ -20,6 +20,7 @@ namespace FinalProject.Models
         public virtual ICollection<DevelopmentTool> DevelopmentTools { get; set; }
         public Coordinates Coordinates { get; set; }
         public double TotalRevenue { get; set; }
+        public double NumberOfEmployees { get; set; }
         public virtual ICollection<RevenueForYear> RevenuePerYears { get; set; }
         public string ImagePath { get; set; }
     }

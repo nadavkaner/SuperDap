@@ -1,4 +1,5 @@
-﻿@model FinalProject.Controllers.CompaniesModel
+﻿@using FinalProject.Controllers
+@model FinalProject.Controllers.CompaniesModel
 
 @{
     ViewBag.Title = "Index";
@@ -14,8 +15,16 @@
     <strong>Filters</strong><br/>
     Location: @foreach (var location in Model.AvailableLocations)
               {
-                  @Html.ActionLink(location, "Index", new {location})<span>, </span>
-              }
+                  @Html.ActionLink(location, "Index", new {location, Revenue = Model.RevenueFilter, Employees = Model.EmployeesRangesFilter})<span>, </span>
+              }<br/>
+
+    Revenue: @Html.ActionLink("0-10000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.ZeroToTenThousand, Employees = Model.EmployeesRangesFilter })<span>, </span>
+    @Html.ActionLink("10000-100000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.TenThousandToHundredThousand, Employees = Model.EmployeesRangesFilter })<span>, </span>
+    @Html.ActionLink("100000-1000000", "Index", new {Location = Model.LocationFilter, Revenue = RevenueRanges.HundredThousandToMilion, Employees = Model.EmployeesRangesFilter})<span>, </span><br/>
+
+    Employees:@Html.ActionLink("0-1000", "Index", new {Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.ZeroToThousand})<span>, </span>
+    @Html.ActionLink("1000-10000", "Index", new {Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.ThousandToTenThousand})<span>, </span>
+    @Html.ActionLink("10000-50000", "Index", new { Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.TenThousandToFiftyThousand })<span>, </span>
 </div>
 <div>
     @Html.ActionLink("Clear Filters", "Index")
@@ -30,6 +39,12 @@
             Location
         </th>
         <th>
+            Revenue
+        </th>
+        <th>
+            Employees
+        </th>
+        <th>
             Most Popular Dev Product
         </th>
         <th></th>
@@ -42,6 +57,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalRevenue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfEmployees)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MostPopularDevelopmentTool.Name)

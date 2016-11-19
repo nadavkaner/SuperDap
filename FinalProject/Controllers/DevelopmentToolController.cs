@@ -36,7 +36,7 @@ namespace FinalProject.Controllers
                 query = FilterDevToolsByPriceRange(searchCriteria, query);
             }
 
-            DevelopmentToolsModel developmentToolsModel = new DevelopmentToolsModel()
+            var developmentToolsModel = new DevelopmentToolsModel()
             {
                 AvailableSourceCodeLicenses = Enum.GetNames(typeof(SourceCodeLicense)),
                 AvailableCompanyNames = _db.DevelopmentTools.Select(x => x.Company.Name).Distinct().ToList(),

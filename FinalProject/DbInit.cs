@@ -176,6 +176,7 @@ namespace FinalProject
                         Longitude = 14.4378
                     },
                     TotalRevenue = 12400,
+                    NumberOfEmployees = 1000,
                     RevenuePerYears = new List<RevenueForYear>
                     {
                         new RevenueForYear { Revenue = 2000, Year = 2012},  
@@ -197,6 +198,7 @@ namespace FinalProject
                         Longitude = -122.1215
                     },
                     TotalRevenue = 85320,
+                    NumberOfEmployees = 10000,
                     RevenuePerYears = new List<RevenueForYear>
                     {
                         new RevenueForYear { Revenue = 5000, Year = 2012},
@@ -219,6 +221,7 @@ namespace FinalProject
                         Longitude = -122.0839
                     },
                     TotalRevenue = 115000,
+                    NumberOfEmployees = 13000,
                     RevenuePerYears = new List<RevenueForYear>
                     {
                         new RevenueForYear { Revenue = 10000, Year = 2012},
@@ -240,6 +243,7 @@ namespace FinalProject
                         Longitude = -122.1817
                     },
                     TotalRevenue = 105000,
+                    NumberOfEmployees = 12500,
                     RevenuePerYears = new List<RevenueForYear>
                     {
                         new RevenueForYear { Revenue = 8000, Year = 2012},
@@ -262,6 +266,7 @@ namespace FinalProject
                         Longitude = -122.4194
                     },
                     TotalRevenue = 56000,
+                    NumberOfEmployees = 7800,
                     RevenuePerYears = new List<RevenueForYear>
                     {
                         new RevenueForYear { Revenue = 8000, Year = 2012},
@@ -283,6 +288,7 @@ namespace FinalProject
                         Longitude = -122.4194
                     },
                     TotalRevenue = 85000,
+                    NumberOfEmployees = 666,
                     RevenuePerYears = new List<RevenueForYear>
                     {
                         new RevenueForYear { Revenue = 16666, Year = 2012},
@@ -304,6 +310,7 @@ namespace FinalProject
                         Longitude = 6.8402
                     },
                     TotalRevenue = 15000,
+                    NumberOfEmployees = 95,
                     RevenuePerYears = new List<RevenueForYear>
                     {
                         new RevenueForYear { Revenue = 1000, Year = 2012},
@@ -325,6 +332,7 @@ namespace FinalProject
                         Longitude = -123.1207
                     },
                     TotalRevenue = 46000,
+                    NumberOfEmployees = 430,
                     RevenuePerYears = new List<RevenueForYear>
                     {
                         new RevenueForYear { Revenue = 3000, Year = 2012},
