@@ -41,18 +41,18 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Coordinates.Lat, new {@class = "control-label col-md-2"})
+                @Html.LabelFor(model => model.Coordinates.Latitude, new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Coordinates.Lat)
-                    @Html.ValidationMessageFor(model => model.Coordinates.Lat)
+                    @Html.EditorFor(model => model.Coordinates.Latitude)
+                    @Html.ValidationMessageFor(model => model.Coordinates.Latitude)
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Coordinates.Long, new {@class = "control-label col-md-2"})
+                @Html.LabelFor(model => model.Coordinates.Longitude, new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Coordinates.Long)
-                    @Html.ValidationMessageFor(model => model.Coordinates.Long)
+                    @Html.EditorFor(model => model.Coordinates.Longitude)
+                    @Html.ValidationMessageFor(model => model.Coordinates.Longitude)
                 </div>
             </div>
 
@@ -61,6 +61,14 @@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.ImagePath)
                     @Html.ValidationMessageFor(model => model.ImagePath)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalRevenue, new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TotalRevenue)
+                    @Html.ValidationMessageFor(model => model.TotalRevenue)
                 </div>
             </div>
 

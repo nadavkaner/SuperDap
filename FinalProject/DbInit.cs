@@ -172,8 +172,8 @@ namespace FinalProject
                     Location = "Czech Republic",
                     Coordinates = new Coordinates()
                     {
-                        Lat = 50.0755, 
-                        Long = 14.4378
+                        Latitude = 50.0755, 
+                        Longitude = 14.4378
                     },
                     TotalRevenue = 12400,
                     RevenuePerYears = new List<RevenueForYear>
@@ -193,8 +193,8 @@ namespace FinalProject
                     Location = "Washington",
                     Coordinates = new Coordinates()
                     {
-                        Lat = 47.6740, 
-                        Long = -122.1215
+                        Latitude = 47.6740, 
+                        Longitude = -122.1215
                     },
                     TotalRevenue = 85320,
                     RevenuePerYears = new List<RevenueForYear>
@@ -215,8 +215,8 @@ namespace FinalProject
                     Location = "California",
                     Coordinates = new Coordinates()
                     {
-                        Lat = 37.3861, 
-                        Long = -122.0839
+                        Latitude = 37.3861, 
+                        Longitude = -122.0839
                     },
                     TotalRevenue = 115000,
                     RevenuePerYears = new List<RevenueForYear>
@@ -236,8 +236,8 @@ namespace FinalProject
                     Location = "California",
                     Coordinates = new Coordinates()
                     {
-                        Lat = 37.4530, 
-                        Long = -122.1817
+                        Latitude = 37.4530, 
+                        Longitude = -122.1817
                     },
                     TotalRevenue = 105000,
                     RevenuePerYears = new List<RevenueForYear>
@@ -258,8 +258,8 @@ namespace FinalProject
                     Location = "California",
                     Coordinates = new Coordinates()
                     {
-                        Lat = 37.7749, 
-                        Long = -122.4194
+                        Latitude = 37.7749, 
+                        Longitude = -122.4194
                     },
                     TotalRevenue = 56000,
                     RevenuePerYears = new List<RevenueForYear>
@@ -279,8 +279,8 @@ namespace FinalProject
                     Location = "California",
                     Coordinates = new Coordinates()
                     {
-                        Lat = 37.7749, 
-                        Long = -122.4194
+                        Latitude = 37.7749, 
+                        Longitude = -122.4194
                     },
                     TotalRevenue = 85000,
                     RevenuePerYears = new List<RevenueForYear>
@@ -300,8 +300,8 @@ namespace FinalProject
                     Location = "Germany",
                     Coordinates = new Coordinates()
                     {
-                        Lat = 51.2964, 
-                        Long = 6.8402
+                        Latitude = 51.2964, 
+                        Longitude = 6.8402
                     },
                     TotalRevenue = 15000,
                     RevenuePerYears = new List<RevenueForYear>
@@ -321,8 +321,8 @@ namespace FinalProject
                     Location = "Canada",
                     Coordinates = new Coordinates()
                     {
-                        Lat = 49.2827, 
-                        Long = -123.1207
+                        Latitude = 49.2827, 
+                        Longitude = -123.1207
                     },
                     TotalRevenue = 46000,
                     RevenuePerYears = new List<RevenueForYear>

@@ -8,10 +8,10 @@ function initializeMap() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
 
-function addMarkerToMap(store) {
+function addMarkerToMap(company) {
     var marker = new google.maps.Marker({
-        position: { lat: store.Coordinates.Lat, lng: store.Coordinates.Long },
+        position: { lat: company.Coordinates.Latitude, lng: company.Coordinates.Longitude },
         map: map,
-        title: store.Name
+        title: company.Name
     });
 }

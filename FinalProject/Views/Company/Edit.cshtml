@@ -29,6 +29,30 @@
                 @Html.ValidationMessageFor(model => model.Location)
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Coordinates.Latitude, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Coordinates.Latitude)
+                @Html.ValidationMessageFor(model => model.Coordinates.Latitude)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Coordinates.Longitude, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Coordinates.Longitude)
+                @Html.ValidationMessageFor(model => model.Coordinates.Longitude)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImagePath, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImagePath)
+                @Html.ValidationMessageFor(model => model.ImagePath)
+            </div>
+        </div>
         
         <div class="form-group">
             @Html.LabelFor(model => model.MostPopularDevelopmentTool, "Most Popular Dev Tool", new { @class = "control-label col-md-2" })

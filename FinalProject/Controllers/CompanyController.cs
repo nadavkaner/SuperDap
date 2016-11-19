@@ -75,7 +75,7 @@ namespace FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Description,Location,HasCrippleEntrance,HasSecurity")] Company company)
+        public ActionResult Create(Company company)
         {
             if (User == null || !User.IsInRole("Admin"))
             {
@@ -85,12 +85,6 @@ namespace FinalProject.Controllers
             if (ModelState.IsValid)
             {
                 company.CompanyId = Guid.NewGuid();
-                company.MostPopularDevelopmentTool = _db.DevelopmentTools.First();
-                company.Coordinates = new Coordinates()
-                {
-                    Lat = 32.077263,
-                    Long = 34.777505
-                };
                 _db.Companies.Add(company);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -129,7 +123,8 @@ namespace FinalProject.Controllers
                 Description = company.Description,
                 Location = company.Location,
                 RevenuePerYears = company.RevenuePerYears,
-                TotalRevenue = company.TotalRevenue
+                TotalRevenue = company.TotalRevenue,
+                ImagePath = company.ImagePath
             };
             return View(companyVm);
         }
@@ -151,6 +146,7 @@ namespace FinalProject.Controllers
                 var original = _db.Companies.Find(company.CompanyId);
                 original.Description = company.Description;
                 original.Location = company.Location;
+                original.Coordinates = company.Coordinates;
                 original.Name = company.Name;
                 original.MostPopularDevelopmentTool = !string.IsNullOrEmpty(company.MostPopularDevelopmentTool) ?
                     _db.DevelopmentTools.Find(Guid.Parse(company.MostPopularDevelopmentTool)) : null;
@@ -252,6 +248,7 @@ namespace FinalProject.Controllers
         public Coordinates Coordinates { get; set; }
         public double TotalRevenue { get; set; }
         public ICollection<RevenueForYear> RevenuePerYears { get; set; }
+        public string ImagePath { get; set; }
     }
 
     public class MostPopularDevelopmentToolViewModel
