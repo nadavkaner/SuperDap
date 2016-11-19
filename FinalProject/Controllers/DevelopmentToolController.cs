@@ -26,10 +26,40 @@ namespace FinalProject.Controllers
 
             query = collection;
 
-            return View(new DevelopmentToolsModel()
+            DevelopmentToolsModel developmentToolsModel = new DevelopmentToolsModel()
             {
-                DevTools = query.ToList()
-            });
+                DevTools = query.ToList(),
+                DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
+            };
+            return View(developmentToolsModel);
+        }
+
+        private static Dictionary<Company, List<DevelopmentTool>> GetDevToolsGroupedByCompany(IQueryable<DevelopmentTool> query)
+        {
+            return query.GroupBy(x=> x.Company).ToDictionary(x=>x.Key, x=> x.ToList());
+        }
+
+        // GET: /DevelopmentTool/GroupByCompany
+        public ActionResult GroupByCompany(ItemSearchCriteria searchCriteria)
+        {
+            var collection = _db.DevelopmentTools;
+            IQueryable<DevelopmentTool> query = collection;
+
+            if (searchCriteria == null)
+            {
+                return View(new DevelopmentToolsModel());
+            }
+            
+
+            query = collection;
+
+            DevelopmentToolsModel developmentToolsModel = new DevelopmentToolsModel()
+            {
+                ShowGroupedBy = true,
+                DevTools = query.ToList(),
+                DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
+            };
+            return View(developmentToolsModel);
         }
 
         // GET: /DevelopmentTool/Details/5
@@ -272,7 +302,9 @@ namespace FinalProject.Controllers
 
     public class DevelopmentToolsModel
     {
+        public bool ShowGroupedBy { get; set; }
         public List<DevelopmentTool> DevTools { get; set; }
+        public Dictionary<Company, List<DevelopmentTool>> DevToolsGroupedByCompany { get; set; }
     }
 
     public class LeaveACommentModel
