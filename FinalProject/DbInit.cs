@@ -137,7 +137,15 @@ namespace FinalProject
                         Lat = 50.0755, 
                         Long = 14.4378
                     },
-                    Revenue = 12400,
+                    TotalRevenue = 12400,
+                    RevenuePerYears = new List<RevenueForYear>
+                    {
+                        new RevenueForYear { Revenue = 2000, Year = 2012},  
+                        new RevenueForYear { Revenue = 4000, Year = 2013},  
+                        new RevenueForYear { Revenue = 1500, Year = 2014},  
+                        new RevenueForYear { Revenue = 2500, Year = 2015},  
+                        new RevenueForYear { Revenue = 2400, Year = 2016},  
+                    },
                     ImagePath = "https://lh3.googleusercontent.com/-4urMhkpWddg/AAAAAAAAAAI/AAAAAAAAEgI/gPlHf7c0lNo/s0-c-k-no-ns/photo.jpg",
                 },
                 new Company
@@ -150,7 +158,15 @@ namespace FinalProject
                         Lat = 47.6740, 
                         Long = -122.1215
                     },
-                    Revenue = 85320,
+                    TotalRevenue = 85320,
+                    RevenuePerYears = new List<RevenueForYear>
+                    {
+                        new RevenueForYear { Revenue = 5000, Year = 2012},
+                        new RevenueForYear { Revenue = 24000, Year = 2013},
+                        new RevenueForYear { Revenue = 10000, Year = 2014},
+                        new RevenueForYear { Revenue = 32000, Year = 2015},
+                        new RevenueForYear { Revenue = 5400, Year = 2016},
+                    },
                     ImagePath = "http://i.giphy.com/12ayMrhdZf0Ptu.gif",
 //                    ImagePath = "http://www.freeiconspng.com/uploads/microsoft-new-logo-simple-0.png",
                 },
@@ -164,7 +180,15 @@ namespace FinalProject
                         Lat = 37.3861, 
                         Long = -122.0839
                     },
-                    Revenue = 115000,
+                    TotalRevenue = 115000,
+                    RevenuePerYears = new List<RevenueForYear>
+                    {
+                        new RevenueForYear { Revenue = 10000, Year = 2012},
+                        new RevenueForYear { Revenue = 8000, Year = 2013},
+                        new RevenueForYear { Revenue = 15000, Year = 2014},
+                        new RevenueForYear { Revenue = 29000, Year = 2015},
+                        new RevenueForYear { Revenue = 38000, Year = 2016},
+                    },
                     ImagePath = "http://images.dailytech.com/nimage/G_is_For_Google_New_Logo_Thumb.png"
                 },
                 new Company
@@ -177,7 +201,15 @@ namespace FinalProject
                         Lat = 37.4530, 
                         Long = -122.1817
                     },
-                    Revenue = 105000,
+                    TotalRevenue = 105000,
+                    RevenuePerYears = new List<RevenueForYear>
+                    {
+                        new RevenueForYear { Revenue = 8000, Year = 2012},
+                        new RevenueForYear { Revenue = 36000, Year = 2013},
+                        new RevenueForYear { Revenue = 15000, Year = 2014},
+                        new RevenueForYear { Revenue = 41000, Year = 2015},
+                        new RevenueForYear { Revenue = 50000, Year = 2016},
+                    },
                     ImagePath = "http://i.giphy.com/ijEiXYEo9DBxm.gif"
 //                    ImagePath = "https://www.facebook.com/images/fb_icon_325x325.png"
                 },
@@ -191,7 +223,15 @@ namespace FinalProject
                         Lat = 37.7749, 
                         Long = -122.4194
                     },
-                    Revenue = 56000,
+                    TotalRevenue = 56000,
+                    RevenuePerYears = new List<RevenueForYear>
+                    {
+                        new RevenueForYear { Revenue = 8000, Year = 2012},
+                        new RevenueForYear { Revenue = 10000, Year = 2013},
+                        new RevenueForYear { Revenue = 8500, Year = 2014},
+                        new RevenueForYear { Revenue = 9800, Year = 2015},
+                        new RevenueForYear { Revenue = 1555, Year = 2016},
+                    },
                     ImagePath = "https://tecnorbita.files.wordpress.com/2015/03/unity3d-logo.png"
                 },
                 new Company
@@ -204,7 +244,15 @@ namespace FinalProject
                         Lat = 37.7749, 
                         Long = -122.4194
                     },
-                    Revenue = 85000,
+                    TotalRevenue = 85000,
+                    RevenuePerYears = new List<RevenueForYear>
+                    {
+                        new RevenueForYear { Revenue = 16666, Year = 2012},
+                        new RevenueForYear { Revenue = 23000, Year = 2013},
+                        new RevenueForYear { Revenue = 15000, Year = 2014},
+                        new RevenueForYear { Revenue = 41000, Year = 2015},
+                        new RevenueForYear { Revenue = 30000, Year = 2016},
+                    },
                     ImagePath = "https://assets-cdn.github.com/images/modules/logos_page/Octocat.png"
                 },
                 new Company
@@ -217,20 +265,36 @@ namespace FinalProject
                         Lat = 51.2964, 
                         Long = 6.8402
                     },
-                    Revenue = 15000,
+                    TotalRevenue = 15000,
+                    RevenuePerYears = new List<RevenueForYear>
+                    {
+                        new RevenueForYear { Revenue = 1000, Year = 2012},
+                        new RevenueForYear { Revenue = 5000, Year = 2013},
+                        new RevenueForYear { Revenue = 2300, Year = 2014},
+                        new RevenueForYear { Revenue = 1999, Year = 2015},
+                        new RevenueForYear { Revenue = 4000, Year = 2016},
+                    },
                     ImagePath = "https://d1qb2nb5cznatu.cloudfront.net/startups/i/21569-c86e305ed0dda7ef283d565cce8195fe-medium_jpg.jpg?buster=1425419948"
                 },
                 new Company
                 {
                     CompanyId = Guid.NewGuid(),
-                    Name = "Slack Technologies",
+                    Name = "Slack",
                     Location = "Canada",
                     Coordinates = new Coordinates()
                     {
                         Lat = 49.2827, 
                         Long = -123.1207
                     },
-                    Revenue = 46000,
+                    TotalRevenue = 46000,
+                    RevenuePerYears = new List<RevenueForYear>
+                    {
+                        new RevenueForYear { Revenue = 3000, Year = 2012},
+                        new RevenueForYear { Revenue = 4800, Year = 2013},
+                        new RevenueForYear { Revenue = 6777, Year = 2014},
+                        new RevenueForYear { Revenue = 4900, Year = 2015},
+                        new RevenueForYear { Revenue = 16670, Year = 2016},
+                    },
                     ImagePath = "https://s-media-cache-ak0.pinimg.com/originals/2b/26/43/2b26437d72e949db88e62d251c736c45.jpg"
                 }
             };

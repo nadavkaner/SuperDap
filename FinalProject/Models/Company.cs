@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FinalProject.Models
 {
@@ -19,7 +20,8 @@ namespace FinalProject.Models
         public Guid MostPopularComputerId { get; set; }
         public virtual ICollection<DevelopmentTool> DevelopmentTools { get; set; }
         public Coordinates Coordinates { get; set; }
-        public double Revenue { get; set; }
+        public double TotalRevenue { get; set; }
+        public virtual ICollection<RevenueForYear> RevenuePerYears { get; set; }
         public string ImagePath { get; set; }
     }
 
@@ -27,5 +29,15 @@ namespace FinalProject.Models
     {
         public double Lat { get; set; }
         public double Long { get; set; }
+    }
+
+    public class RevenueForYear
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+        [Required]
+        public int Year { get; set; }
+        [Required]
+        public double Revenue { get; set; }
     }
 }

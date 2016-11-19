@@ -12,5 +12,6 @@ namespace FinalProject.Models
     {
         public string Company { get; set; }
         public double Revenue{ get; set; }
+        public IEnumerable<RevenueForYear> RevenueForYear { get; set; }
     }
 }

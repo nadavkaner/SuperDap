@@ -24,7 +24,8 @@ namespace FinalProject.Controllers
             var companiesRevenue = _db.Companies.Select(x => new
             {
                 x.Name,
-                x.Revenue
+                x.TotalRevenue,
+                x.RevenuePerYears
             });
             
             return View(new StatisticsModel
@@ -32,7 +33,8 @@ namespace FinalProject.Controllers
                 CompanyRevenues = companiesRevenue.Select(x => new CompanyRevenue
                 {
                     Company = x.Name,
-                    Revenue = x.Revenue
+                    Revenue = x.TotalRevenue,
+                    RevenueForYear = x.RevenuePerYears
                 })
             });
         }

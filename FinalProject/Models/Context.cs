@@ -21,12 +21,15 @@ namespace FinalProject.Models
         {
             modelBuilder
                 .Entity<DevelopmentTool>()
-                .HasRequired<Company>(s => s.Company)
+                .HasRequired(s => s.Company)
                 .WithMany(s => s.DevelopmentTools)
                 .WillCascadeOnDelete();
             modelBuilder
                 .Entity<Company>()
                 .HasOptional(x => x.MostPopularDevelopmentTool);
+            modelBuilder
+                .Entity<Company>()
+                .HasMany(x => x.RevenuePerYears);
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
