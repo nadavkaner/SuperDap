@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using FinalProject.Models;
 using Microsoft.AspNet.Identity;
@@ -97,12 +98,37 @@ namespace FinalProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             DevelopmentTool developmentTool = _db.DevelopmentTools.Find(id);
             if (developmentTool == null)
             {
                 return HttpNotFound();
             }
             return View(developmentTool);
+        }
+        
+        public ActionResult CommentDetails(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            DevelopmentTool developmentTool = _db.DevelopmentTools.Find(id);
+            if (developmentTool == null)
+            {
+                return HttpNotFound();
+            }
+            var commentDetails = Json(developmentTool.Comments.OrderBy(x => x.Date).Select(x => new
+            {
+                canDelete = (User.IsInRole("Admin") || User.Identity.GetUserId() == x.User.Id),
+                userId = x.User.Id,
+                x.Id,
+                Date = x.Date.ToString(),
+                x.Text,
+                userName = x.User.UserName
+            }), JsonRequestBehavior.AllowGet);
+            return commentDetails;
         }
 
         // GET: /DevelopmentTool/Create
