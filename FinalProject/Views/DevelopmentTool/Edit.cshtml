@@ -1,4 +1,5 @@
-﻿@model FinalProject.Models.DevelopmentTool
+﻿@using FinalProject.Models
+@model FinalProject.Models.DevelopmentTool
 
 @{
     ViewBag.Title = "Edit";
@@ -26,6 +27,22 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberOfUsers, "Number Of Users", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberOfUsers)
+                @Html.ValidationMessageFor(model => model.NumberOfUsers)
+            </div>
+        </div>
+        
+        <div class="form-group">
             @Html.LabelFor(model => model.LastUpdate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LastUpdate)
@@ -34,17 +51,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)
+                @Html.TextAreaFor(model => model.Description, new { @class = "text-area-size"})
                 @Html.ValidationMessageFor(model => model.Description)
             </div>
         </div>

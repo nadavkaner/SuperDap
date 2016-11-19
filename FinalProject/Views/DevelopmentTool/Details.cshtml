@@ -13,6 +13,23 @@
         <img src="@Html.DisplayFor(model => model.ImagePath)" style="position: absolute; right: 50px; height: 100px;"/>
     </div>
     <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.Name)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Price)
         </dt>
@@ -22,27 +39,27 @@
         </dd>
 
         <dt>
+            Number Of Users
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfUsers)
+        </dd>
+        
+        <dt>
+            Source Code License
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SourceCodeLicense)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.LastUpdate)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.LastUpdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
@@ -57,9 +74,16 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Rate) / 10
+            @Html.DisplayFor(model => model.Rate) / 10 (@Html.DisplayFor(model => model.NumberOfRaters) Raters)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
     </dl>
 </div>
 <p>
