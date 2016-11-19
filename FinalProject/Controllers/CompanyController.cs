@@ -80,7 +80,7 @@ namespace FinalProject.Controllers
             {
                 return Redirect("/Home/Index");
             }
-
+            Validate(company);
             if (ModelState.IsValid)
             {
                 company.CompanyId = Guid.NewGuid();
@@ -92,7 +92,24 @@ namespace FinalProject.Controllers
             return View(company);
         }
 
+        private void Validate(Company company)
+        {
+            if (string.IsNullOrEmpty(company.Name))
+            {
+                ModelState.AddModelError("Name", "Enter Name for the company");
+            }
+            if (string.IsNullOrEmpty(company.Location))
+            {
+                ModelState.AddModelError("Location", "Enter Location for the company");
+            }
+            if (string.IsNullOrEmpty(company.ImagePath))
+            {
+                ModelState.AddModelError("ImagePath", "Enter ImagePath for the company");
+            }
+        }
+
         // GET: /Company/Edit/5
+
         public ActionResult Edit(Guid? id)
         {
             if (User == null || !User.IsInRole("Admin"))
@@ -129,8 +146,11 @@ namespace FinalProject.Controllers
         }
 
         // POST: /Company/Edit/5
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CompanyViewModel company)
@@ -139,7 +159,7 @@ namespace FinalProject.Controllers
             {
                 return Redirect("/Home/Index");
             }
-
+            Validate(company);
             if (ModelState.IsValid)
             {
                 var original = _db.Companies.Find(company.CompanyId);
@@ -153,8 +173,24 @@ namespace FinalProject.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.devProducts = _db.Companies.Find(company.CompanyId).DevelopmentTools.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList();
             return View(company);
+        }
+
+        private void Validate(CompanyViewModel company)
+        {
+            if (string.IsNullOrEmpty(company.Name))
+            {
+                ModelState.AddModelError("Name", "Enter Name for the company");
+            }
+            if (string.IsNullOrEmpty(company.Location))
+            {
+                ModelState.AddModelError("Location", "Enter Location for the company");
+            }
+            if (string.IsNullOrEmpty(company.ImagePath))
+            {
+                ModelState.AddModelError("ImagePath", "Enter ImagePath for the company");
+            }
         }
 
         // GET: /Company/Delete/5
