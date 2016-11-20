@@ -26,8 +26,7 @@
     }
 </div>
 <hr/>
-@*<h4>Core Developers:</h4>*@
-<canvas id="canvasid"></canvas>
+<h4>Core Developers:</h4>
 <div class="FlexRow" style="flex-wrap: wrap; justify-content: space-around; flex-wrap: wrap; align-content: center; margin: 0 200px">
     <div class="FlexRow employee-wrap">
         <div class="FlexRow employee">
@@ -90,9 +89,10 @@
         </div>
     </div>
 </div>
+<hr/>
 
-<div>
-
+<div style="display: flex; flex-flow: row; justify-content: center; align-content: center;">
+    <canvas id="canvasid" width="800px" height="50px"></canvas>
 </div>
 @Scripts.Render("~/bundles/jquery")
 <script>
@@ -100,7 +100,8 @@
             var canvas = document.getElementById("canvasid");
             var ctx = canvas.getContext("2d");
             ctx.font = "30px Arial";
-            ctx.strokeText("Core Developers:", 10, 30);
+            ctx.textAlign = "center";
+            ctx.fillText("Enhance your skills with our best development tools", 400, 30);
         }
 
         Canvas("canvasid");
