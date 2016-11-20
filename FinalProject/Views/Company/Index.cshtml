@@ -11,20 +11,91 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<div >
-    <strong>Filters</strong><br/>
+<div>
+    <strong>Filters</strong><br />
     Location: @foreach (var location in Model.AvailableLocations)
-              {
-                  @Html.ActionLink(location, "Index", new {location, Revenue = Model.RevenueFilter, Employees = Model.EmployeesRangesFilter})<span>, </span>
-              }<br/>
+    {
+        if (location == Model.LocationFilter)
+        {
+            <strong>
+                @Html.ActionLink(location, "Index", new { location, Revenue = Model.RevenueFilter, Employees = Model.EmployeesRangesFilter })<span>, </span>
+            </strong>
+        }
+        else
+        {
+            @Html.ActionLink(location, "Index", new { location, Revenue = Model.RevenueFilter, Employees = Model.EmployeesRangesFilter })<span>, </span>
+        }
 
-    Revenue: @Html.ActionLink("0-10000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.ZeroToTenThousand, Employees = Model.EmployeesRangesFilter })<span>, </span>
-    @Html.ActionLink("10000-100000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.TenThousandToHundredThousand, Employees = Model.EmployeesRangesFilter })<span>, </span>
-    @Html.ActionLink("100000-1000000", "Index", new {Location = Model.LocationFilter, Revenue = RevenueRanges.HundredThousandToMilion, Employees = Model.EmployeesRangesFilter})<span>, </span><br/>
+    }<br />
 
-    Employees:@Html.ActionLink("0-1000", "Index", new {Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.ZeroToThousand})<span>, </span>
-    @Html.ActionLink("1000-10000", "Index", new {Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.ThousandToTenThousand})<span>, </span>
-    @Html.ActionLink("10000-50000", "Index", new { Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.TenThousandToFiftyThousand })<span>, </span>
+    Revenue:
+    @if (Model.RevenueFilter == RevenueRanges.ZeroToTenThousand)
+    {
+        <strong>
+            @Html.ActionLink("0-10000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.ZeroToTenThousand, Employees = Model.EmployeesRangesFilter })<span>, </span>
+        </strong>
+    }
+    else
+    {
+        @Html.ActionLink("0-10000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.ZeroToTenThousand, Employees = Model.EmployeesRangesFilter })<span>, </span>
+    }
+    @if (Model.RevenueFilter == RevenueRanges.TenThousandToHundredThousand)
+    {
+        <strong>
+            @Html.ActionLink("10000-100000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.TenThousandToHundredThousand, Employees = Model.EmployeesRangesFilter })<span>, </span>
+        </strong>
+    }
+    else
+    {
+        @Html.ActionLink("10000-100000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.TenThousandToHundredThousand, Employees = Model.EmployeesRangesFilter })<span>, </span>
+    }
+
+    @if (Model.RevenueFilter == RevenueRanges.HundredThousandToMilion)
+    {
+        <strong>
+            @Html.ActionLink("100000-1000000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.HundredThousandToMilion, Employees = Model.EmployeesRangesFilter })<span>, </span><br />
+        </strong>
+    }
+    else
+    {
+        @Html.ActionLink("100000-1000000", "Index", new { Location = Model.LocationFilter, Revenue = RevenueRanges.HundredThousandToMilion, Employees = Model.EmployeesRangesFilter })<span>, </span><br />
+    }
+
+
+    Employees:
+    @if (Model.EmployeesRangesFilter == EmployeesRanges.ZeroToThousand)
+    {
+        <strong>
+            @Html.ActionLink("0-1000", "Index", new { Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.ZeroToThousand })<span>, </span>
+        </strong>
+    }
+    else
+    {
+        @Html.ActionLink("0-1000", "Index", new {Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.ZeroToThousand})<span>, </span>
+    }
+
+    @if (Model.EmployeesRangesFilter == EmployeesRanges.ThousandToTenThousand)
+    {
+        <strong>
+            @Html.ActionLink("1000-10000", "Index", new { Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.ThousandToTenThousand })<span>, </span>
+        </strong>
+    }
+    else
+    {
+        @Html.ActionLink("1000-10000", "Index", new { Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.ThousandToTenThousand })<span>, </span>
+    }
+
+    @if (Model.EmployeesRangesFilter == EmployeesRanges.TenThousandToFiftyThousand)
+    {
+        <strong>
+            @Html.ActionLink("10000-50000", "Index", new { Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.TenThousandToFiftyThousand })<span>, </span>
+        </strong>
+    }
+    else
+    {
+        @Html.ActionLink("10000-50000", "Index", new { Location = Model.LocationFilter, Revenue = Model.RevenueFilter, Employees = EmployeesRanges.TenThousandToFiftyThousand })<span>, </span>
+    }
+    
 </div>
 <div>
     @Html.ActionLink("Clear Filters", "Index")
@@ -50,7 +121,8 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Companies) {
+    @foreach (var item in Model.Companies)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -73,8 +145,8 @@
                 @if (User.IsInRole("Admin"))
                 {
                     @Html.ActionLink("Edit", "Edit", new { id = item.CompanyId })<span>
-                                                                                   |
-                                                                               </span>
+                        |
+                    </span>
                     @Html.ActionLink("Delete", "Delete", new { id = item.CompanyId })
                 }
             </td>
@@ -101,7 +173,7 @@
         @foreach (var Company in Model.Companies.Select(x => new { Coordinates = x.Coordinates, Name = x.Name }))
         {
             <text>addMarkerToMap(@Html.Raw(Json.Encode(Company)));</text>
-        } 
+        }
     });
 </script>
 
