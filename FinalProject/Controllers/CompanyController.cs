@@ -197,6 +197,7 @@ namespace FinalProject.Controllers
                 original.Name = company.Name;
                 original.MostPopularDevelopmentTool = !string.IsNullOrEmpty(company.MostPopularDevelopmentTool) ? _db.DevelopmentTools.Find(Guid.Parse(company.MostPopularDevelopmentTool)) : null;
                 original.TotalRevenue = company.TotalRevenue;
+                original.NumberOfEmployees = company.NumberOfEmployees;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -327,6 +328,7 @@ namespace FinalProject.Controllers
         public ICollection<DevelopmentTool> DevelopmentTools { get; set; }
         public Coordinates Coordinates { get; set; }
         public double TotalRevenue { get; set; }
+        public double NumberOfEmployees { get; set; }
         public ICollection<RevenueForYear> RevenuePerYears { get; set; }
         public string ImagePath { get; set; }
     }

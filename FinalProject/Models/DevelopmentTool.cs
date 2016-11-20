@@ -34,6 +34,8 @@ namespace FinalProject.Models
         public decimal Rate { get; set; }
 
         public virtual Company Company { get; set; }
+        
+        public string CompanyId { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 

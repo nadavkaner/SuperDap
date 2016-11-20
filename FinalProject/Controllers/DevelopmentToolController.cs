@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -138,8 +139,8 @@ namespace FinalProject.Controllers
             {
                 return Redirect("/Home/Index");
             }
-
-            return View();
+            ViewBag.Companies = GetCompaniesList();
+            return View(new DevelopmentTool {Id = Guid.NewGuid()});
         }
 
         // POST: /DevelopmentTool/Create
@@ -147,22 +148,25 @@ namespace FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Price,LastUpdate,Name,Description,Category")] DevelopmentTool developmentTool)
+        public ActionResult Create( DevelopmentTool developmentTool)
         {
             if (User == null || !User.IsInRole("Admin"))
             {
                 return Redirect("/Home/Index");
             }
-
+            #region Hack the validator
+            developmentTool.Id = Guid.NewGuid();
+            ModelState.Remove("Id"); 
+            #endregion
+            Validate(developmentTool);
             if (ModelState.IsValid)
             {
-                developmentTool.Id = Guid.NewGuid();
-                developmentTool.Company = _db.Companies.First();
-                _db.DevelopmentTools.Add(developmentTool);
+                developmentTool.Company = _db.Companies.Find(Guid.Parse(developmentTool.CompanyId));
+                _db.DevelopmentTools.AddOrUpdate(developmentTool);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.Companies = GetCompaniesList();
             return View(developmentTool);
         }
 
@@ -183,6 +187,7 @@ namespace FinalProject.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Companies = _db.Companies.Select(x => new SelectListItem() { Value = x.CompanyId.ToString(), Text = x.Name }).ToList();
             return View(developmentTool);
         }
 
@@ -191,13 +196,13 @@ namespace FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Price,LastUpdate,Name,Description,Category")] DevelopmentTool developmentTool)
+        public ActionResult Edit(DevelopmentTool developmentTool)
         {
             if (User == null || !User.IsInRole("Admin"))
             {
                 return Redirect("/Home/Index");
             }
-
+            Validate(developmentTool);
             if (ModelState.IsValid)
             {
                 var original = _db.DevelopmentTools.Find(developmentTool.Id);
@@ -205,11 +210,49 @@ namespace FinalProject.Controllers
                 original.LastUpdate = developmentTool.LastUpdate;
                 original.Name = developmentTool.Name;
                 original.Description = developmentTool.Description;
-
+                var newCompanyId = Guid.Parse(developmentTool.CompanyId);
+                if (original.Company.CompanyId != newCompanyId)
+                {
+                    original.Company.MostPopularDevelopmentTool = null;
+                }
+                original.Company = _db.Companies.Find(newCompanyId);
+                original.CompanyId = developmentTool.CompanyId;
+                original.ImagePath = developmentTool.ImagePath;
+                original.SiteUrl = developmentTool.ImagePath;
+                original.Rate = developmentTool.Rate;
+                original.NumberOfRaters = developmentTool.NumberOfRaters;
+                original.NumberOfUsers = developmentTool.NumberOfUsers;
+                original.SourceCodeLicense = developmentTool.SourceCodeLicense;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Companies = GetCompaniesList();
             return View(developmentTool);
+        }
+
+        private List<SelectListItem> GetCompaniesList()
+        {
+            return _db.Companies.Select(x => new SelectListItem() { Value = x.CompanyId.ToString(), Text = x.Name }).ToList();
+        }
+
+        private void Validate(DevelopmentTool developmentTool)
+        {
+            if (string.IsNullOrEmpty(developmentTool.Name))
+            {
+                ModelState.AddModelError("Name", "Enter Name for the development tool");
+            }
+            if (string.IsNullOrEmpty(developmentTool.ImagePath))
+            {
+                ModelState.AddModelError("ImagePath", "Enter ImagePath for the development tool");
+            }
+            if (string.IsNullOrEmpty(developmentTool.SiteUrl))
+            {
+                ModelState.AddModelError("SiteUrl", "Enter SiteUrl for the development tool");
+            }
+            if (developmentTool.LastUpdate == new DateTime())
+            {
+                ModelState.AddModelError("LastUpdate", "Enter Last Update for the development tool");
+            }
         }
 
         // GET: /DevelopmentTool/Delete/5

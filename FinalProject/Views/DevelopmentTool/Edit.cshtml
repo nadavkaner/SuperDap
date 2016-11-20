@@ -2,16 +2,16 @@
 @model FinalProject.Models.DevelopmentTool
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit " + Model.Name;
 }
 
-<h2>Edit</h2>
+<h3>Edit @Model.Name</h3>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>DevelopmentTool</h4>
         <hr />
@@ -33,28 +33,76 @@
                 @Html.ValidationMessageFor(model => model.Name)
             </div>
         </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.NumberOfUsers, "Number Of Users", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NumberOfUsers)
-                @Html.ValidationMessageFor(model => model.NumberOfUsers)
-            </div>
-        </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.LastUpdate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastUpdate)
+                @Html.EditorFor(model => model.LastUpdate, new { @class = "form-control datepicker", placeholder = "Enter Last update"})
+                value template: (@DateTime.Now)
                 @Html.ValidationMessageFor(model => model.LastUpdate)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Company, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CompanyId, new SelectList(ViewBag.Companies, "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.CompanyId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "text-area-size" })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SiteUrl, "Site url", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SiteUrl, new { @class = "text-area-size" })
+                @Html.ValidationMessageFor(model => model.SiteUrl)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImagePath, "Image path", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImagePath, new { @class = "text-area-size" })
+                @Html.ValidationMessageFor(model => model.ImagePath)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Rate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, new { @class = "text-area-size"})
-                @Html.ValidationMessageFor(model => model.Description)
+                @Html.EditorFor(model => model.Rate, new { @class = "text-area-size" })
+                @Html.ValidationMessageFor(model => model.Rate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberOfRaters, "Number of raters", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberOfRaters, new { @class = "text-area-size" })
+                @Html.ValidationMessageFor(model => model.NumberOfRaters)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberOfUsers, "Number of users", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberOfUsers, new { @class = "text-area-size" })
+                @Html.ValidationMessageFor(model => model.NumberOfUsers)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SourceCodeLicense, "Source code license", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SourceCodeLicense, new { @class = "text-area-size" })
+                values: ( @string.Join(", ", Enum.GetNames(typeof(SourceCodeLicense))) )
+                @Html.ValidationMessageFor(model => model.SourceCodeLicense)
             </div>
         </div>
 
@@ -72,4 +120,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
 }
+<script>
+    $(function() {
+        $('.datepicker').datepicker();
+    })
+</script>
