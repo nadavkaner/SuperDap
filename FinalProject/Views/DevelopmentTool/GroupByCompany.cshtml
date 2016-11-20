@@ -1,4 +1,5 @@
-﻿@using FinalProject.Models
+﻿@using FinalProject.Controllers
+@using FinalProject.Models
 @model FinalProject.Controllers.DevelopmentToolsModel
 
 @{
@@ -12,15 +13,62 @@
 </p>
 
 <div style="margin: 15px 0">
-    <strong>Filters</strong>
+    <strong>Filters</strong><br />
+    Source Code Licenses: @foreach (var sourceCodeLicenses in Model.AvailableSourceCodeLicenses)
+    {
+        if (Model.SourceCodeLicenseFilter == sourceCodeLicenses)
+        {
+            <strong>
+                @Html.ActionLink(sourceCodeLicenses, "GroupByCompany", new { sourceCodeLicenses, CompanyName = Model.CompanyNameFilter, PriceRange = Model.PriceFilter })<span>, </span>
+            </strong>
+        }
+        else
+        {
+            @Html.ActionLink(sourceCodeLicenses, "GroupByCompany", new { sourceCodeLicenses, CompanyName = Model.CompanyNameFilter, PriceRange = Model.PriceFilter })<span>, </span>
+        }
+    }<br />
+    Company Name: @foreach (var companyName in Model.AvailableCompanyNames)
+    {
+        if (Model.CompanyNameFilter == companyName)
+        {
+            <strong>
+                @Html.ActionLink(companyName, "GroupByCompany", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, companyName, PriceRange = Model.PriceFilter })<span>, </span>
+            </strong>
+        }
+        else
+        {
+            @Html.ActionLink(companyName, "GroupByCompany", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, companyName, PriceRange = Model.PriceFilter })<span>, </span>
+        }
+    }<br />
+    Price:
+    @if (Model.PriceFilter == PriceRange.ZeroToHundred)
+    {<strong>@Html.ActionLink("0-100", "GroupByCompany", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.ZeroToHundred })<span>, </span></strong>}
+    else {@Html.ActionLink("0-100", "GroupByCompany", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.ZeroToHundred })<span>, </span> }
+    @if (Model.PriceFilter == PriceRange.HundredToThousand)
+    {
+        <strong>@Html.ActionLink("100-1000", "GroupByCompany", new {SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.HundredToThousand})<span>, </span></strong>
+    }
+    else
+    {
+        @Html.ActionLink("100-1000", "GroupByCompany", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.HundredToThousand })<span>, </span>
+    }
+    @if (Model.PriceFilter == PriceRange.ThousandToTenThousand)
+    {
+        <strong>@Html.ActionLink("1000-10000", "GroupByCompany", new {SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.ThousandToTenThousand})<span>, </span></strong>
+    }
+    else
+    {
+        @Html.ActionLink("1000-10000", "GroupByCompany", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.ThousandToTenThousand })<span>, </span>
+    }
 
+    <br />
     <br />@Html.ActionLink("Clear Filters", "GroupByCompany")
     <br />@Html.ActionLink("Clear group", "Index")
 </div>
 
 @foreach (var company in Model.DevToolsGroupedByCompany.Keys)
 {
-    <br/>
+    <br />
     <h4>@Html.ActionLink(company.Name, "Details", "Company", new { id = company.CompanyId }, null) DevelopmentTools</h4>
     <div>
         <table class="table">
@@ -58,14 +106,14 @@
                         @Html.DisplayFor(modelItem => item.SourceCodeLicense)
                     </td>
                     <td>
-                        @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
 
                         @if (User.IsInRole("Admin"))
                         {
-                            @Html.ActionLink("Edit", "Edit", new {id = item.Id})<span>
-                            |
-                        </span>
-                            @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })<span>
+                                |
+                            </span>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                         }
                     </td>
                 </tr>

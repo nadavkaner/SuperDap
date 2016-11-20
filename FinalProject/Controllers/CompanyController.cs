@@ -143,6 +143,10 @@ namespace FinalProject.Controllers
             {
                 ModelState.AddModelError("ImagePath", "Enter ImagePath for the company");
             }
+            if (company.NumberOfEmployees < 0)
+            {
+                ModelState.AddModelError("NumberOfEmployees", "Enter valid Number Of Employees for the company");
+            }
         }
 
         // GET: /Company/Edit/5
@@ -218,6 +222,10 @@ namespace FinalProject.Controllers
             if (string.IsNullOrEmpty(company.ImagePath))
             {
                 ModelState.AddModelError("ImagePath", "Enter ImagePath for the company");
+            }
+            if (company.NumberOfEmployees < 0)
+            {
+                ModelState.AddModelError("NumberOfEmployees", "Enter valid Number Of Employees for the company");
             }
         }
 

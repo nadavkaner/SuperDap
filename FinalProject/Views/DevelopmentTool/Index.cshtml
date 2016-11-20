@@ -16,15 +16,38 @@
     <strong>Filters</strong><br />
     Source Code Licenses: @foreach (var sourceCodeLicenses in Model.AvailableSourceCodeLicenses)
     {
-        @Html.ActionLink(sourceCodeLicenses, "Index", new { sourceCodeLicenses, CompanyName = Model.CompanyNameFilter, PriceRange = Model.PriceFilter })<span>, </span>
+        if (Model.SourceCodeLicenseFilter == sourceCodeLicenses)
+        {
+            <strong>
+                @Html.ActionLink(sourceCodeLicenses, "Index", new { sourceCodeLicenses, CompanyName = Model.CompanyNameFilter, PriceRange = Model.PriceFilter })<span>, </span>
+            </strong>
+        }
+        else
+        {
+            @Html.ActionLink(sourceCodeLicenses, "Index", new { sourceCodeLicenses, CompanyName = Model.CompanyNameFilter, PriceRange = Model.PriceFilter })<span>, </span>
+        }
     }<br />
     Company Name: @foreach (var companyName in Model.AvailableCompanyNames)
     {
-        @Html.ActionLink(companyName, "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, companyName, PriceRange = Model.PriceFilter })<span>, </span>
-    }<br/>
-    Price:@Html.ActionLink("0-100", "Index", new {SourceCodeLicenses = Model.SourceCodeLicenseFilter, Model.CompanyNameFilter, PriceRange = PriceRange.ZeroToHundred})<span>, </span>
-    @Html.ActionLink("100-1000", "Index", new {SourceCodeLicenses = Model.SourceCodeLicenseFilter, Model.CompanyNameFilter, PriceRange = PriceRange.HundredToThousand })<span>, </span>
-    @Html.ActionLink("1000-10000", "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, Model.CompanyNameFilter, PriceRange = PriceRange.ThousandToTenThousand })<span>, </span>
+        if (Model.CompanyNameFilter == companyName)
+        {
+            <strong>
+                @Html.ActionLink(companyName, "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, companyName, PriceRange = Model.PriceFilter })<span>, </span>
+            </strong>
+        }
+        else
+        {
+            @Html.ActionLink(companyName, "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, companyName, PriceRange = Model.PriceFilter })<span>, </span>
+        }
+    }<br />
+    Price:
+    @if (Model.PriceFilter == PriceRange.ZeroToHundred)
+    {<strong>@Html.ActionLink("0-100", "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.ZeroToHundred })<span>, </span></strong>}
+    else {@Html.ActionLink("0-100", "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.ZeroToHundred })<span>, </span> }
+    @if (Model.PriceFilter == PriceRange.HundredToThousand){<strong>@Html.ActionLink("100-1000", "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.HundredToThousand })<span>, </span></strong>}
+    else{@Html.ActionLink("100-1000", "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.HundredToThousand })<span>, </span>}
+    @if (Model.PriceFilter == PriceRange.ThousandToTenThousand){<strong>@Html.ActionLink("1000-10000", "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.ThousandToTenThousand })<span>, </span></strong>}
+    else{@Html.ActionLink("1000-10000", "Index", new { SourceCodeLicenses = Model.SourceCodeLicenseFilter, CompanyName = Model.CompanyNameFilter, PriceRange = PriceRange.ThousandToTenThousand })<span>, </span>}
 
     <br/>@Html.ActionLink("Clear Filters", "Index")
     <br />@Html.ActionLink("group by company", "GroupByCompany")

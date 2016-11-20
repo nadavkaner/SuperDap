@@ -24,19 +24,7 @@ namespace FinalProject.Controllers
             {
                 return View(new DevelopmentToolsModel());
             }
-            if (!string.IsNullOrWhiteSpace(searchCriteria.SourceCodeLicenses))
-            {
-                var sourceCodeLicenses = (SourceCodeLicense)Enum.Parse(typeof(SourceCodeLicense), searchCriteria.SourceCodeLicenses);
-                query = query.Where(x => x.SourceCodeLicense == sourceCodeLicenses);
-            }
-            if (!string.IsNullOrWhiteSpace(searchCriteria.CompanyName))
-            {
-                query = query.Where(x => x.Company.Name == searchCriteria.CompanyName);
-            }
-            if (searchCriteria.PriceRange != PriceRange.None)
-            {
-                query = FilterDevToolsByPriceRange(searchCriteria, query);
-            }
+            query = GetByFiltersDevelopmentTools(searchCriteria, query);
 
             var developmentToolsModel = new DevelopmentToolsModel()
             {
@@ -49,6 +37,25 @@ namespace FinalProject.Controllers
                 DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
             };
             return View(developmentToolsModel);
+        }
+
+        private static IQueryable<DevelopmentTool> GetByFiltersDevelopmentTools(DevToolSearchCriteria searchCriteria, IQueryable<DevelopmentTool> query)
+        {
+            if (!string.IsNullOrWhiteSpace(searchCriteria.SourceCodeLicenses))
+            {
+                var sourceCodeLicenses =
+                    (SourceCodeLicense) Enum.Parse(typeof (SourceCodeLicense), searchCriteria.SourceCodeLicenses);
+                query = query.Where(x => x.SourceCodeLicense == sourceCodeLicenses);
+            }
+            if (!string.IsNullOrWhiteSpace(searchCriteria.CompanyName))
+            {
+                query = query.Where(x => x.Company.Name == searchCriteria.CompanyName);
+            }
+            if (searchCriteria.PriceRange != PriceRange.None)
+            {
+                query = FilterDevToolsByPriceRange(searchCriteria, query);
+            }
+            return query;
         }
 
         private static IQueryable<DevelopmentTool> FilterDevToolsByPriceRange(DevToolSearchCriteria searchCriteria, IQueryable<DevelopmentTool> collection)
@@ -76,18 +83,22 @@ namespace FinalProject.Controllers
         {
             var collection = _db.DevelopmentTools;
             IQueryable<DevelopmentTool> query = collection;
-
             if (searchCriteria == null)
             {
                 return View(new DevelopmentToolsModel());
             }
-
-
-            query = collection;
+            query = GetByFiltersDevelopmentTools(searchCriteria, query);
 
             DevelopmentToolsModel developmentToolsModel = new DevelopmentToolsModel()
             {
-                ShowGroupedBy = true, DevTools = query.ToList(), DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
+                ShowGroupedBy = true,
+                AvailableSourceCodeLicenses = Enum.GetNames(typeof(SourceCodeLicense)),
+                AvailableCompanyNames = _db.DevelopmentTools.Select(x => x.Company.Name).Distinct().ToList(),
+                CompanyNameFilter = searchCriteria.CompanyName,
+                SourceCodeLicenseFilter = searchCriteria.SourceCodeLicenses,
+                PriceFilter = searchCriteria.PriceRange,
+                DevTools = query.ToList(),
+                DevToolsGroupedByCompany = GetDevToolsGroupedByCompany(query)
             };
             return View(developmentToolsModel);
         }
@@ -248,6 +259,22 @@ namespace FinalProject.Controllers
             if (string.IsNullOrEmpty(developmentTool.SiteUrl))
             {
                 ModelState.AddModelError("SiteUrl", "Enter SiteUrl for the development tool");
+            }
+            if (developmentTool.Rate < 0 || developmentTool.Rate > 10)
+            {
+                ModelState.AddModelError("Rate", "Rate should be between 0 - 10");
+            }
+            if (developmentTool.Price < 0)
+            {
+                ModelState.AddModelError("Price", "Price should be greater than 0");
+            }
+            if (developmentTool.NumberOfRaters < 0)
+            {
+                ModelState.AddModelError("NumberOfRaters", "NumberOfRaters should be greater than 0");
+            }
+            if (developmentTool.NumberOfUsers < 0)
+            {
+                ModelState.AddModelError("NumberOfUsers", "NumberOfUsers should be greater than 0");
             }
             if (developmentTool.LastUpdate == new DateTime())
             {
